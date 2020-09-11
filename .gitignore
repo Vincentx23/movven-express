@@ -2,3 +2,8 @@
 /public/build/
 
 .DS_Store
+# Ignore node_modules folder
+node_modules/
+
+# Ignore .en file in the project
+.env

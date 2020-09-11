@@ -22,7 +22,7 @@ import BarNav from './components/BarNav.svelte';
        
                 <span data-feather="file"></span>
                 Orders
-              </a>
+    
             </li>
             <li class="nav-item">
        

@@ -1,7 +1,6 @@
 require('dotenv').config()
 const app = require('./app');
 
-
 //Funcion para iniciar el server de backend
 async function main (){
     await app.listen(app.get('port'));

@@ -15,7 +15,6 @@ module.exports = {
                 [email],
                 (err, res) => {
                     if (err) {
-                        console.log(err);
                         return reject(err);
                     }
                     if (Array.isArray(res) && res.length > 0) {

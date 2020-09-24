@@ -1,3 +1,22 @@
+<!--Filtros de la tabla-->
+<div>
+  <select id="order-status">
+    <option value=null >Seleccione un estado</option>
+    <option value= 1 >No verificado</option>
+    <option value= 2 >Verificado</option>
+    <option value= 3 >Procesado</option>
+    <option value= 4 >Completado</option>
+    <option value= 5 >Retirado</option>
+    <option value= 6 >Entregado</option>
+    <option value= 7 >No Entregado</option>
+    <option value= 8 >Rechazado</option>
+  </select>
+  <input type="date" id="order-date">
+  
+  <button type="submit" id="btn-order" class="btn btn-primary">Filtrar</button>
+</div>
+
+
 <!-- Tabla de pedidos -->
 <div class="table-responsive">
     <table class="table table-striped table-sm ">

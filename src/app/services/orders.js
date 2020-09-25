@@ -53,7 +53,7 @@ module.exports = {
         (resolve,reject) =>{
             if(date==='null' || state==='null') {
                 db.query(
-                    'SELECT * FROM orders WHERE userId = ?',
+                    'SELECT * FROM orders WHERE userId = ? ORDER BY createdAt DESC',
                     [userId], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
@@ -69,7 +69,7 @@ module.exports = {
                 )
             } else {
                 db.query(
-                    'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ?',
+                    'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',
                     [userId,date,date,state], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);

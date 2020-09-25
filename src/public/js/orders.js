@@ -29,6 +29,7 @@ $(document).ready(function () {
 
                 alert('Pedido ingresado satisfactoriamente')
                 $("#form-order")[0].reset();
+                loadOrders(null, null);
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.responseJSON && xhr.responseJSON.error) {

@@ -6,7 +6,7 @@ router.get('/', function (req, res) {
 	  {
         message: req.flash('loginMessage')
 	  });
-  
+
   });
 
 
@@ -15,8 +15,16 @@ router.get('/dashboard', function (req, res) {
 	  {
         message: req.flash('Dashboard Message')
 	  });
-  
+
   });
+
+router.get('/file', function (req, res) {
+	res.render('file',
+		{
+			message: req.flash('Process File')
+		});
+
+});
 
 
 module.exports = router

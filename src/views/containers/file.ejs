@@ -1,0 +1,87 @@
+
+
+
+<%- include ('../partials/file/head') %>
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+
+    <%- include ('../partials/sidebar') %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <%- include ('../partials/nav') %>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Upload Excel File</h1>
+                    <!-- Boton de agrtegar pedidos-->
+                    <div class="btn-toolbar mb-2 mb-md-0">&nbsp;
+                        <a href="/excel/download" class="btn btn-success btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                  </span>
+                            <span class="text">Download Template</span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+
+                <div class="">
+
+                    <!-- Begin Page Content -->
+                    <div class="">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-12">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold movven-color" ><strong>Upload excel file</strong> </h6>
+                            </div>
+                            <div class="card-body">
+                                <input type="file" class="my-pond" name="file" data-max-files="1"/>
+
+                                <div>
+                                    <a href="/excel/download">Download template</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <%- include ('../partials/footer.ejs') %>
+
+    </div>
+    <!-- End of Content Wrapper -->
+
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>-->
+
+
+<%- include ('../partials/file/scripts.ejs') %>

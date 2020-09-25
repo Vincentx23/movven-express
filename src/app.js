@@ -7,10 +7,11 @@ const path = require('path');
 const coparser = require('cookie-parser');
 const flash = require('connect-flash');
 
+global.__basedir = path.join(__dirname, '../');
 const app = express();
 
-//Settings 
-app.set('port', process.env.PORT || 8080)
+//Settings
+app.set('port', process.env.PORT || 80)
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -28,7 +29,7 @@ app.use(exsession
     }));
 app.use(flash());
 
-//Static files 
+//Static files
 app.use(express.static("public"), express.static(path.join(__dirname, "public")));
 
 //Routes

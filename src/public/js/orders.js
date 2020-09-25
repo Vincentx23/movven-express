@@ -96,7 +96,8 @@ $(document).ready(function () {
                     } else {
                         state = 'Rechazado'
                     }
-                    alert(order.createdAt, order.codeDelivery, order.clientName, order.phone, order.city, order.distric,state)
+                    $('#staticBackdrop').empty()
+                    $('#staticBackdrop').append(generateModal(order.createdAt, order.codeDelivery, order.clientName, order.phone, order.city, order.distric,state))
                 })
             },
             error: function (xhr, status, error) {
@@ -127,13 +128,39 @@ $(document).ready(function () {
             '<td id="td-codeDelivery" name="td-codeDelivery">'+idDelivery+'</td>\n' +
             '<td>'+clientName+'</td>\n' +
             ' <td>'+phone+'</td>\n' +
-            '<td>'+city+'</td>\n' +
+           // '<td>'+city+'</td>\n' +
             '<td>'+distric+'</td>\n' +
             '<td>'+state+'</td>\n' +
-            '<td> <button type="button" id="btnDetalle" data-id="' + idDelivery + '" class="btn btn-info"> Mas detalles </button></td>'+
-            '</tr>\n';
+            '<td> <button type="button" id="btnDetalle" data-id="'+idDelivery+'" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop"> Mas detalles </button></td>'+
+            '</tr>';
+        
+
     }
-    /**
+
+    function generateModal(createdAt,codeDelivery, clientName, phone, city, distric,state){
+        // Modal 
+    return'<div class="modal-dialog">\n' +
+        '<div class="modal-content">\n' +
+        '<div class="modal-header">\n' +
+            '<h5 class="modal-title" id="staticBackdropLabel">Modal title</h5>\n' +
+            '<button type="button" class="close" data-dismiss="modal" aria-label="Close">\n' +
+            '<span aria-hidden="true">&times;</span>\n' +
+            '</button>\n' +
+        '</div>\n' +
+        '<div class="modal-body">\n' +
+        createdAt +
+
+
+        '</div>\n' +
+        '<div class="modal-footer">\n' +
+            '<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>\n' +
+            '<button type="button" class="btn btn-primary">Understood</button>\n' +
+    '</div>\n' +
+    '</div>\n' +
+    '</div>\n';
+
+        }
+        /**
      * Function to load all user orders
      */
     function loadOrders(state, date) {

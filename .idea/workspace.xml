@@ -1,7 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="348cd1f8-498d-43d9-a9aa-3c0f0c58e955" name="Default Changelist" comment="" />
+    <list default="true" id="348cd1f8-498d-43d9-a9aa-3c0f0c58e955" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/src/views/partials/file/head.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/partials/file/scripts.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/partials/footer.ejs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/views/partials/nav.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/containers/file.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/containers/file.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/file.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/file.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/partials/login/head.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/login/head.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/partials/orders/sliderbar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/orders/sliderbar.ejs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/views/partials/sidebar.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/sidebar.ejs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,9 +26,15 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1hy8sXHBMl0g1Qx0J3p0h8NiITm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="true" />
@@ -26,7 +43,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views/containers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/views/partials/file" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -37,11 +54,11 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/views/partials/file" />
+      <recent name="$PROJECT_DIR$/src/views/partials" />
       <recent name="$PROJECT_DIR$/src/views/containers" />
       <recent name="$PROJECT_DIR$/src/views" />
       <recent name="$PROJECT_DIR$/src/app/services" />
-      <recent name="$PROJECT_DIR$/src/app/controllers" />
-      <recent name="$PROJECT_DIR$/src/views/partials" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/app" />
@@ -87,7 +104,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600972178657</updated>
-      <workItem from="1600972180361" duration="18560000" />
+      <workItem from="1600972180361" duration="20012000" />
     </task>
     <servers />
   </component>
@@ -99,29 +116,45 @@
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
     <state x="-1496" y="201" key="#com.intellij.execution.impl.EditConfigurationsDialog/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1600975960711" />
-    <state width="1899" height="393" key="GridCell.Tab.0.bottom" timestamp="1601018083332">
+    <state x="-1820" y="100" width="1720" height="880" key="DiffContextDialog" timestamp="1601019169079">
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1899" height="393" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018083332" />
+    <state x="-1820" y="100" width="1720" height="880" key="DiffContextDialog/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019169079" />
+    <state width="1899" height="393" key="GridCell.Tab.0.bottom" timestamp="1601019899430">
+      <screen x="-1920" y="0" width="1920" height="1080" />
+    </state>
+    <state width="1899" height="393" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019899430" />
     <state width="1899" height="304" key="GridCell.Tab.0.bottom/-1920.0.1920.1080/0.23.1680.1027@-1920.0.1920.1080" timestamp="1601013649633" />
-    <state width="1899" height="393" key="GridCell.Tab.0.center" timestamp="1601018083330">
+    <state width="1899" height="393" key="GridCell.Tab.0.center" timestamp="1601019899428">
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1899" height="393" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018083330" />
+    <state width="1899" height="393" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019899428" />
     <state width="1899" height="304" key="GridCell.Tab.0.center/-1920.0.1920.1080/0.23.1680.1027@-1920.0.1920.1080" timestamp="1601013649631" />
-    <state width="1899" height="393" key="GridCell.Tab.0.left" timestamp="1601018083328">
+    <state width="1899" height="393" key="GridCell.Tab.0.left" timestamp="1601019899427">
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1899" height="393" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018083328" />
+    <state width="1899" height="393" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019899427" />
     <state width="1899" height="304" key="GridCell.Tab.0.left/-1920.0.1920.1080/0.23.1680.1027@-1920.0.1920.1080" timestamp="1601013649630" />
-    <state width="1899" height="393" key="GridCell.Tab.0.right" timestamp="1601018083330">
+    <state width="1899" height="393" key="GridCell.Tab.0.right" timestamp="1601019899429">
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state width="1899" height="393" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018083330" />
+    <state width="1899" height="393" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019899429" />
     <state width="1899" height="304" key="GridCell.Tab.0.right/-1920.0.1920.1080/0.23.1680.1027@-1920.0.1920.1080" timestamp="1601013649632" />
-    <state x="-1282" y="297" width="643" height="486" key="find.popup" timestamp="1601015664976">
+    <state x="-1632" y="109" key="MergeDialog" timestamp="1601018953841">
       <screen x="-1920" y="0" width="1920" height="1080" />
     </state>
-    <state x="-1282" y="297" width="643" height="486" key="find.popup/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601015664976" />
+    <state x="-1632" y="109" key="MergeDialog/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018953841" />
+    <state x="-1244" y="263" key="MultipleFileMergeDialog" timestamp="1601018953885">
+      <screen x="-1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="-1244" y="263" key="MultipleFileMergeDialog/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601018953885" />
+    <state x="-1820" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog" timestamp="1601019169080">
+      <screen x="-1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="-1820" y="100" width="1720" height="880" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601019169080" />
+    <state x="-1282" y="297" width="643" height="486" key="find.popup" timestamp="1601020108224">
+      <screen x="-1920" y="0" width="1920" height="1080" />
+    </state>
+    <state x="-1282" y="297" width="643" height="486" key="find.popup/-1920.0.1920.1080/0.0.1680.1050@-1920.0.1920.1080" timestamp="1601020108224" />
   </component>
 </project>

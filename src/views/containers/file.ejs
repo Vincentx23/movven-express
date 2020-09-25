@@ -1,67 +1,87 @@
-<div class="container-fluid">
-    <div class="row">
-        <%- include ('../partials/sidebar.ejs') %>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
-            <h4>Upload excel file</h4>
-            <input type="file" class="my-pond" name="file" data-max-files="1"/>
 
-            <div>
-                <a href="/excel/download">Download template</a>
+
+<%- include ('../partials/file/head') %>
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+
+    <%- include ('../partials/sidebar') %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <%- include ('../partials/nav') %>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Upload Excel File</h1>
+                    <!-- Boton de agrtegar pedidos-->
+                    <div class="btn-toolbar mb-2 mb-md-0">&nbsp;
+                        <a href="/excel/download" class="btn btn-success btn-icon-split">
+                  <span class="icon text-white-50">
+                    <i class="fas fa-file-excel"></i>
+                  </span>
+                            <span class="text">Download Template</span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <!-- Content Row -->
+
+                <div class="">
+
+                    <!-- Begin Page Content -->
+                    <div class="">
+
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-12">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold movven-color" ><strong>Upload excel file</strong> </h6>
+                            </div>
+                            <div class="card-body">
+                                <input type="file" class="my-pond" name="file" data-max-files="1"/>
+
+                                <div>
+                                    <a href="/excel/download">Download template</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
             </div>
-        </main>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <%- include ('../partials/footer.ejs') %>
+
     </div>
+    <!-- End of Content Wrapper -->
+
 </div>
+<!-- End of Page Wrapper -->
 
-<script>
-    $(document).ready(function () {
+<!-- Scroll to Top Button
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>-->
 
-        $.fn.filepond.registerPlugin(FilePondPluginFileValidateType);
-        // Turn input element into a pond
-        $('.my-pond').filepond({
-            acceptedFileTypes: ['application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.oasis.opendocument.spreadsheet'],
-            allowMultiple: false,
-            allowFileTypeValidation: true,
-            labelFileTypeNotAllowed: 'File of invalid type',
-            instantUpload: true,
-            allowMultipart: false,
-            name: 'file',
-            processHandler(...args){
-                console.log(args);
-            },
-            server: {
-                process: {
-                    url: '/excel/upload',
-                    method: 'POST',
-                    withCredentials: false,
-                    headers: {
-                        // 'content-type': 'multipart/form-data',
-                        'x-access-token': window.localStorage.getItem('x-access-token')
-                    },
-                    onload: () => {
-                        console.log('onload')
-                    },
-                    onerror: (error) => {
-                        console.log('onerror', error)
-                    },
-                    // ondata: (data, ...args) => {
-                    //     console.log('ondata', data, args)
-                    // }
-                },
-            }
-        });
 
-        // Set allowMultiple property to true
-        // $('.my-pond').filepond('allowMultiple', false);
-
-        // Listen for addfile event
-        // $('.my-pond').on('FilePond:addfile', function (e) {
-        //     console.log('file added event', e);
-        // });
-
-        // Manually add a file using the addfile method
-        // $('.my-pond').first().filepond('addFile', 'index.html').then(function (file) {
-        //     console.log('file added', file);
-        // });
-    });
-</script>
+<%- include ('../partials/file/scripts.ejs') %>

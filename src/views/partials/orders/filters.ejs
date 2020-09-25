@@ -1,0 +1,47 @@
+<form>
+  <div class="container">
+    <div class="form-row">
+
+        <div class="form-group col-md-6">
+          <label for="order-status">Estado del Pedido</label>
+          <select class="form-control" id="order-status">
+            <option value=null>Seleccione un estado</option>
+            <option value=null>Mostrar todos</option>
+            <option value=1>No verificado</option>
+            <option value=2>Verificado</option>
+            <option value=3>Procesado</option>
+            <option value=4>Completado</option>
+            <option value=5>Retirado</option>
+            <option value=6>Entregado</option>
+            <option value=7>No Entregado</option>
+            <option value=8>Rechazado</option>
+          </select>
+        </div>
+  
+       <div class="form-group col-md-3">
+      <label for="order-date">Fecha del Pedido</label> 
+      <br> 
+      &nbsp;
+      <input type="date" id="order-date" style="margin-top: 1%;">
+    </div> 
+   
+        <!-- <div class="form-group col-md-6" >
+           <label for="order-date">Fecha del Pedido</label>
+            <input id="order-date" width="276" />
+            <script>
+              $('#order-date').datepicker({
+                uiLibrary: 'bootstrap4'
+              });
+            </script>  
+         
+        </div> -->
+        <div class="col align-self-center">
+          <button type="submit" id="btn-order" class="btn btn-secondary">Consultar</button>
+    
+        </div>
+    </div>
+    <br>
+  </div>
+</form>
+
+

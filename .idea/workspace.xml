@@ -1,24 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="348cd1f8-498d-43d9-a9aa-3c0f0c58e955" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/app/controllers/excel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/middlewares/uploadMulter.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/routes/excel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/services/excel.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/app/utils/db.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/containers/file.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/file.ejs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/views/partials/sidebar.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app/routes/views.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/app/routes/views.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/partials/content.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/content.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/partials/foot.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/foot.ejs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/partials/head.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/partials/head.ejs" afterDir="false" />
-    </list>
+    <list default="true" id="348cd1f8-498d-43d9-a9aa-3c0f0c58e955" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +87,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1600972178657</updated>
-      <workItem from="1600972180361" duration="18180000" />
+      <workItem from="1600972180361" duration="18560000" />
     </task>
     <servers />
   </component>

@@ -11,6 +11,9 @@ $(document).ready(function () {
                 'x-access-token': window.localStorage.getItem('x-access-token')
             },
             success: function (data) {
+
+                    $('#userDropdown').html(data.user.email)
+
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.status && xhr.status >= 400 && xhr.status <= 404) {

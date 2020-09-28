@@ -4,4 +4,4 @@ node_modules/
 # Ignore .en file in the project
 
 .idea
-/data/uploads/*.xlsx
+

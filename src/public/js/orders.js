@@ -22,7 +22,8 @@ $(document).ready(function () {
                 directionDetails: $('#directionDetails').val(),
                 orderDescription: $('#orderDescription').val(),
                 limitDate: $('#limitDate').val(),
-                codeDelivery: $('#codeDelivery').val()
+                codeDelivery: $('#codeDelivery').val(),
+                payment: $('#payment').val()
             }),
             dataType: 'json',
             success: function (data) {

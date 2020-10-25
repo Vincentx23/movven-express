@@ -4,7 +4,7 @@ const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, getOrderById} = req
 
 
 controller.newOrder = async (req,res,next) => {
-    const {clientName, phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery} = req.body; 
+    const {clientName, phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery, payment} = req.body; 
     try{
 
         if(!clientName || !phone || !city || !distric || !amountPakages || !totalDimensions || !directionDetails || !orderDescription || !limitDate || !codeDelivery) {
@@ -20,7 +20,7 @@ controller.newOrder = async (req,res,next) => {
      
     }catch(err) {
         //Si capta un error de la peticion del servicio de verificacion de code, significa que el codigo no existe, por tanto dejamos registrar la peticion
-        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, req.userId);
+        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment,req.userId);
         res.status(200).json({message: 'Pedido registrado'});
     }
 }

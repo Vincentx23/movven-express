@@ -26,5 +26,12 @@ router.get('/file', function (req, res) {
 
 });
 
+router.get('/admin', function (req, res) {
+	res.render('admin',
+		{
+			message: req.flash('Adminitration')
+		});
+
+});
 
 module.exports = router

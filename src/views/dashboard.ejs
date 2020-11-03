@@ -1,1 +1,102 @@
-<%- include ('partials/orders/dashcontent') %>	
+<%- include ('partials/orders/headdashboard') %>
+
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+    <!-- Sidebar -->
+
+    <%- include ('partials/orders/sliderbar') %>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div id="content-wrapper" class="d-flex flex-column">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <%- include ('partials/orders/nav') %>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Gestor de Pedidos</h1>
+                    <!-- Boton de agrtegar pedidos-->
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <a href="#" class="btn btn-secondary btn-icon-split" data-toggle="modal"
+                            data-target="#exampleModal">
+                            <span class="icon text-white-50">
+                                <i class="fa fa-plus"></i>
+                            </span>
+                            <span class="text">Agregar Pedido</span>
+                        </a>&nbsp;    
+                    </div>
+                </div>
+
+            <!-- Collapsable Card Example -->
+              <div class="card shadow mb-4 border-bottom-dark">
+                <!-- Card Header - Accordion -->
+                <a href="#collapseaddpedidos" class="d-block card-header py-3" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="collapseaddpedidos">
+                  <h6 class="m-0 font-weight-bold movven-color"><strong>Filtros</strong> </h6>
+                </a>
+                <!-- Card Content - Collapse -->
+                <div class="collapse show" id="collapseaddpedidos">
+                  <div class="card-body">
+                    <%- include ('partials/orders/addpedidos') %>
+                  </div>
+                </div>
+              </div>
+               <br>
+
+                <!-- Content Row -->
+
+                <div class="">
+                    <!-- Begin Page Content -->
+                    <div class="">
+                        <!-- DataTales Example -->
+                        <div class="card shadow mb-12">
+                            <div class="card-header py-3">
+                                <h6 class="m-0 font-weight-bold movven-color"><strong>Tabla de Pedidos</strong> </h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+
+                                    <%- include ('partials/orders/tablapedidos') %>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /.container-fluid -->
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+
+        </div>
+        <!-- End of Main Content -->
+
+        <!-- Footer -->
+        <footer class="sticky-footer bg-white">
+            <div class="container my-auto">
+                <div class="copyright text-center my-auto">
+                    <span>Copyright &copy; Movven Express <i class="fas fa-project-diagram "></i> Developed by
+                        M&V</span>
+                </div>
+            </div>
+        </footer>
+        <!-- End of Footer -->
+    </div>
+    <!-- End of Content Wrapper -->
+</div>
+<!-- End of Page Wrapper -->
+
+<!-- Scroll to Top Button
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>-->
+
+
+<%- include ('partials/orders/scriptsdashboard') %>

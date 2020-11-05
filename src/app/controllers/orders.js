@@ -1,6 +1,6 @@
 const controller = {};
 
-const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, getOrderById} = require('../services/orders');
+const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, upGradeOrderSate, getOrderById, getOrders} = require('../services/orders');
 
 
 controller.newOrder = async (req,res,next) => {
@@ -22,6 +22,20 @@ controller.newOrder = async (req,res,next) => {
         //Si capta un error de la peticion del servicio de verificacion de code, significa que el codigo no existe, por tanto dejamos registrar la peticion
         newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment,req.userId);
         res.status(200).json({message: 'Pedido registrado'});
+    }
+}
+
+
+controller.getOrders = async (req,res, next) => {
+    try {
+        let orders = await getOrders();
+        if(!orders) {
+            return res.status(404).send('No tiene ordenes registradas');
+        }
+
+        return res.status(200).send({data: orders})
+    }catch(err) { 
+        res.status(err.status ? err.status : 500).send({error: err.message});  
     }
 }
 
@@ -59,5 +73,21 @@ controller.getOrderById = async(req,res,next) => {
     }
 }
 
+controller.upGradeOrderState = async(req, res, next) => {
+    const {newState, lastState, orderId} = req.body;
+    try{
+
+        if(!newState){
+            return res.status(400).json({ message: "Ingrese todos los campos requeridos" }) 
+   
+        }
+
+        upGradeOrderSate(req.userId, orderId, newState, lastState);
+        res.status(200).json({message:'Estado del pedido actualizado'});
+        
+    }catch(err) {
+        res.status(err.status ? err.status : 500).send({error: err.message});  
+    }
+}
 
 module.exports = controller

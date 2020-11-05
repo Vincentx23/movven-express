@@ -40,6 +40,31 @@ module.exports = {
 
         }
     ),
+    
+
+    /**
+     * Get all Orders data (admin role)
+     * @returns {Promise<any>}
+     */
+    getOrders: () => new Promise(
+        (resolve, reject) => {
+            db.query(
+                'SELECT * FROM orders ORDER BY createdAt DESC', 
+                [],
+                (err, rows, fields) => {
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return  resolve(rows && Array.isArray(rows) ? rows : []);
+                    } else {
+                        return reject({
+                            status: 400, 
+                            message: 'No existen pedidos registrados'
+                        });
+                    } 
+                }
+            )
+        }
+    ),
 
      /**
      * Get user data by user id, date and order state
@@ -67,7 +92,25 @@ module.exports = {
                         }
                     }
                 )
-            } else {
+            } //Condicion para mostrar todas las ordenes de un dia especificado 
+            else if( state === 0 || date ) {
+                db.query(
+                    'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) ORDER BY createdAt DESC',
+                    [userId, date, date], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            } 
+            else {
                 db.query(
                     'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',
                     [userId,date,date,state], 
@@ -143,5 +186,52 @@ module.exports = {
             )
         }
     ),
+
+    /**
+     * Update order state
+     * @param userId
+     * @param orderId
+     * @param newState
+     * @param lastState
+     * @returns {Promise<any>}
+     */
+    upGradeOrderSate: (userId, orderId, newState, lastState) => new Promise(
+        (resolve, reject) => {
+            db.query(
+                'UPDATE orders SET state = ? WHERE userId = ? AND id = ?'
+                [newState, userId, orderId],
+                (err, res) => {
+                    if(err) {
+                        return reject({
+                            status: 405,
+                            message: 'Error al actualizar el estado, intente nuevamente'
+                        });
+                    } else {
+                        return resolve ({
+                            status: 200, 
+                            message: 'Estado del pedido actualizado'
+                        })
+                    }
+                }
+            ),
+            db.query(
+                'INSERT INTO upgradeOrderState SET ?',
+                {orderId, lastState, newState},
+                (err,res) => {
+                    if(err) {
+                        return reject({
+                            status: 405,
+                            message: 'Error al actualizar el estado, intente nuevamente'
+                        });
+                    } else {
+                        return resolve ({
+                            status: 200, 
+                            message: 'Estado del pedido actualizado'
+                        })
+                    }
+                }
+            )
+        }
+    )
 
 }

@@ -53,7 +53,14 @@ $(document).ready(function () {
     $('#btn-order').on('click', function (e) {
         let state= $('#order-status option:selected').val();
         let date= $('#order-date').val();
-        loadOrders(state, date);
+        if(state &&  !date  ){
+            alert('Selecciones fecha del pedido')
+        } else if( state === 'null' && date){
+            alert('Seleccione un estado de pedido')
+        } 
+        else {
+            loadOrders(state, date);
+        }
     });
 
     /**

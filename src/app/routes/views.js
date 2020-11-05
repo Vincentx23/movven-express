@@ -29,9 +29,18 @@ router.get('/file', function (req, res) {
 router.get('/admin', function (req, res) {
 	res.render('admin',
 		{
-			message: req.flash('Adminitration')
+			message: req.flash('Administration')
 		});
 
 });
+
+router.get('/users', function (req, res) {
+	res.render('users',
+		{
+			message: req.flash('User creator')
+		});
+
+});
+
 
 module.exports = router

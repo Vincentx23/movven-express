@@ -1,9 +1,9 @@
 const router = require('express').Router();
 const {register, login, me, tokenIsValid} = require('../controllers/auth')
-const verifyToken = require ('../middlewares/verifyToken')
+const verifyToken = require ('../middlewares/verifyToken');
 
 router.route('/register')
-    .post(register)
+    .post(verifyToken,register)
 
 router.route('/login')  
     .post(login)

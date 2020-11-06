@@ -28,7 +28,9 @@ controller.newOrder = async (req,res,next) => {
 
 controller.getOrders = async (req,res, next) => {
     try {
-        let orders = await getOrders();
+        let state = req.params.state;
+        let date = req.params.date;
+        let orders = await getOrders(state, date);
         if(!orders) {
             return res.status(404).send('No tiene ordenes registradas');
         }

@@ -46,23 +46,73 @@ module.exports = {
      * Get all Orders data (admin role)
      * @returns {Promise<any>}
      */
-    getOrders: () => new Promise(
+    getOrders: (state,date) => new Promise(
         (resolve, reject) => {
-            db.query(
-                'SELECT * FROM orders ORDER BY createdAt DESC', 
-                [],
-                (err, rows, fields) => {
-                    if(err) return reject(err);
-                    if(Array.isArray(rows) && rows.length >0) {
-                        return  resolve(rows && Array.isArray(rows) ? rows : []);
-                    } else {
-                        return reject({
-                            status: 400, 
-                            message: 'No existen pedidos registrados'
-                        });
-                    } 
-                }
-            )
+            if(state === 'null' && date === 'null') {
+                db.query(
+                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id ORDER BY createdAt DESC', 
+                    [],
+                    (err, rows, fields) => {
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No existen pedidos registrados'
+                            });
+                        } 
+                    }
+                )
+            }else if( state === 0 && date) {
+                db.query(
+                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) ORDER BY createdAt DESC',
+                    [date, date], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            } else if (state > 0 && date === 'null') {
+                db.query(
+                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE state = ?  ORDER BY createdAt DESC',
+                    [state], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            } else {
+                db.query(
+                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',
+                    [date,date,state], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            }
         }
     ),
 
@@ -93,7 +143,7 @@ module.exports = {
                     }
                 )
             } //Condicion para mostrar todas las ordenes de un dia especificado 
-            else if( state === 0 || date ) {
+            else if( state === 0 && date ) {
                 db.query(
                     'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) ORDER BY createdAt DESC',
                     [userId, date, date], 
@@ -109,7 +159,23 @@ module.exports = {
                         }
                     }
                 )
-            } 
+            } else if (state && date === 'null'){
+                db.query(
+                    'SELECT * FROM orders WHERE userId = ? AND state = ?  ORDER BY createdAt DESC',
+                    [userId, state], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            }
             else {
                 db.query(
                     'SELECT * FROM orders WHERE userId = ? AND (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',

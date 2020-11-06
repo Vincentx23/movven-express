@@ -4,9 +4,11 @@ const verifyToken = require ('../middlewares/verifyToken');
 
 
 router.route('/order')
-    .get(verifyToken, getOrders)
     .post(verifyToken, newOrder)
     .put(verifyToken, upGradeOrderState)
+
+router.route('/orders/:state/:date')
+    .get(verifyToken, getOrders)
 
 router.route('/order/:state/:date')
     .get(verifyToken, getUserOrders)

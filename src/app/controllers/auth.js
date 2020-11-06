@@ -7,7 +7,7 @@ const jwtConfig = require('../config/jwt')
 
 
 controller.register = async (req, res, next) => {
-    const {name, email, password, passwordCheck} = req.body
+    const {name, email, password, passwordCheck, rol} = req.body
     const correo = email.toLowerCase();
 
     try{
@@ -27,7 +27,7 @@ controller.register = async (req, res, next) => {
        const checkuser =  await checkUserInDatabase(correo); 
 
        if(checkuser) {
-           return res.status(400).send({error: "Usuario registrado, intente nuevamente"})
+           return res.status(400).send({error: "Usuario no registrado, intente nuevamente"})
        }
 
     }catch(err){
@@ -35,7 +35,7 @@ controller.register = async (req, res, next) => {
         const salt = bcrypt.genSaltSync(10);
         let hashedPass = bcrypt.hashSync(password, salt);
         
-        newUser(name, correo, hashedPass);
+        newUser(name, correo, hashedPass, rol);
         res.status(200).json({message: 'Usuario registrado'});
     }
 }
@@ -94,7 +94,6 @@ controller.me = async (req,res, next) => {
         res.status(500).json({error: err.message});
     }
 }
-
 
 controller.tokenIsValid = async (req, res, next) => { 
     try {

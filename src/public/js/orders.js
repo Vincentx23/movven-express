@@ -53,9 +53,11 @@ $(document).ready(function () {
     $('#btn-order').on('click', function (e) {
         let state= $('#order-status option:selected').val();
         let date= $('#order-date').val();
-        if(state &&  !date  ){
-            alert('Selecciones fecha del pedido')
-        } else if( state === 'null' && date){
+
+        if(!date){
+            date = null
+        }
+        if( state === 'null' && date){
             alert('Seleccione un estado de pedido')
         } 
         else {
@@ -218,7 +220,7 @@ $(document).ready(function () {
     '</div>\n';
 
         }
-        /**
+    /**
      * Function to load all user orders
      */
     function loadOrders(state, date) {

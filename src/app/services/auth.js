@@ -37,10 +37,10 @@ module.exports = {
      * @param password
      * @returns {Promise<any>}
     */
-    newUser: (name, email, password) => new Promise(
+    newUser: (name, email, password, rol) => new Promise(
         (resolve, reject) => {
             db.query('INSERT INTO users SET ?',
-                { name: name, email: email, password: password },
+                { name: name, email: email, password: password, userType: rol },
                 (err, res) => {
                     if (err) {
                         console.log(err);
@@ -66,7 +66,6 @@ module.exports = {
      * @param id
      * @return {Promise<any>}
      */
-
      getUserById: id => new Promise(
          (resolve,reject) =>{
              db.query(

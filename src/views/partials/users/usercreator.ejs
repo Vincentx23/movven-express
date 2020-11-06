@@ -8,31 +8,34 @@
     <div class="collapse show" id="collapseaddpedidos">
       <div class="card-body">
         <div class="container-fluid">
-          <form>
+          <form id='form-user'>
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="exampleInputEmail1">Nombre Completo</label>
-                <input type="text" class="form-control" id="" aria-describedby="" placeholder="Ejemplo: Carlos Lara " required>
+                <input type="text" class="form-control" id="userName" aria-describedby="" placeholder="Ejemplo: Carlos Lara " required>
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleInputEmail1">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Ejemplo: namelastname@empresa.com " required>
+                <label for="email">Email address</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Ejemplo: namelastname@empresa.com " required>
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleInputPassword1">Contraseña</label>
-                <input type="text" class="form-control" id="exampleInputPassword1">
+                <label for="password">Contraseña</label>
+                <input type="text" class="form-control" id="password" placeholder="Contraseña">
               </div>
               <div class="form-group col-md-6">
-                <label for="exampleFormControlSelect1">Seleccione un rol</label>
-                <select class="form-control" id="exampleFormControlSelect1">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
+                <label for="password">Confirmar Contraseña</label>
+                <input type="text" class="form-control" id="passwordCheck" placeholder=" Confirmar Contraseña">
+              </div>
+              <div class="form-group col-md-12">
+                <label for="select-rol">Seleccione un rol</label>
+                <select class="form-control" id="select-rol">
+                  <option value='null'>Seleccione su rol</option>
+                  <option value =0>Administrador</option>
+                  <option value = 1>Cliente</option>
+                  <option value = 2>Conductor</option>
                 </select>
               </div>            
-              <button type="submit" class="btn btn-success">Crear ususario</button>
+              <button type="button" class="btn btn-success" id='btn-newUser'>Crear ususario</button>
             </div>
           </form>    
           </div>

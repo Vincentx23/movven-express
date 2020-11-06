@@ -15,7 +15,11 @@ $(document).ready(function () {
             success: function (data) {
                 const token = data.token;
                 window.localStorage.setItem('x-access-token', token);
-                window.location.replace('/dashboard');
+                if(data.user.rol === 0) {
+                    window.location.replace('/admin');
+                }else if(data.user.rol === 1) {
+                    window.location.replace('/dashboard');
+                }
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.responseJSON && xhr.responseJSON.error) {

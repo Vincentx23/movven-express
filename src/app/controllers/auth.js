@@ -70,7 +70,8 @@ controller.login = async (req,res,next) => {
                     user: {
                         id: user.id,
                         nombre: user.name, 
-                        email: user.email
+                        email: user.email, 
+                        rol: user.userType
                     }
                 });
             }

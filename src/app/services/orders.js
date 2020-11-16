@@ -50,7 +50,7 @@ module.exports = {
         (resolve, reject) => {
             if(state === 'null' && date === 'null') {
                 db.query(
-                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id ORDER BY createdAt DESC', 
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, userId, name, email FROM orders ord INNER JOIN users us ON ord.userId = us.id ORDER BY createdAt DESC', 
                     [],
                     (err, rows, fields) => {
                         if(err) return reject(err);
@@ -66,7 +66,7 @@ module.exports = {
                 )
             }else if( state === 0 && date) {
                 db.query(
-                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) ORDER BY createdAt DESC',
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, userId, name, email  FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) ORDER BY createdAt DESC',
                     [date, date], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
@@ -82,7 +82,7 @@ module.exports = {
                 )
             } else if (state > 0 && date === 'null') {
                 db.query(
-                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE state = ?  ORDER BY createdAt DESC',
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, userId, name, email  FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE state = ?  ORDER BY createdAt DESC',
                     [state], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
@@ -98,7 +98,7 @@ module.exports = {
                 )
             } else {
                 db.query(
-                    'SELECT * FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, userId, name, email  FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE (createdAt >= ? AND createdAt < ? + INTERVAL 1 DAY) AND state = ? ORDER BY createdAt DESC',
                     [date,date,state], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
@@ -117,7 +117,7 @@ module.exports = {
     ),
 
      /**
-     * Get user data by user id, date and order state
+     * Get user data by user id, date and order state (client role)
      * @param id
      * @param state
      * @param date
@@ -197,17 +197,16 @@ module.exports = {
     ),
 
      /**
-     * Get user data by user id, date and order state
-     * @param id
-     * @param codeDelivery
+     * Get order data by idOrder 
+     * @param idOrder
      * @return {Promise<any>}
      */
 
-    getOrderById: (userId,codeDelivery) => new Promise(
+    getOrderById: (idOrder) => new Promise(
         (resolve,reject) =>{
                 db.query(
-                    'SELECT * FROM orders WHERE userId = ? and codeDelivery= ?',
-                    [userId, codeDelivery], 
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, userId, name, email  FROM orders ord INNER JOIN users us ON ord.userId = us.id WHERE ord.id = ? ORDER BY createdAt DESC ',
+                    [idOrder], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
                         if(Array.isArray(rows) && rows.length >0) {
@@ -222,8 +221,60 @@ module.exports = {
                 )
         }
     ),
-      /**
-     * Check if user exists on database and get his data
+
+    /**
+     * Get order data by idOrder (admin role)
+     * @param idOrder
+     * @returns {Promise<any>}
+     */
+    getAdminOrdersById: (idOrder) => new Promise(
+        (resolve,reject) =>{
+                db.query(
+                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, us.id as "userId", name, email, (select name from users where id = cd.userId) as "conductor" FROM orders ord INNER JOIN users us ON ord.userId = us.id INNER JOIN conductor cd ON ord.id = cd.orderId WHERE ord.id = ? ORDER BY createdAt DESC',
+                    [idOrder], 
+                    (err, rows, fields) =>{
+                        if(err) return reject(err);
+                        if(Array.isArray(rows) && rows.length >0) {
+                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                        } else {
+                            return reject({
+                                status: 400, 
+                                message: 'No tiene pedidos registrados'
+                            });
+                        }
+                    }
+                )
+            }
+    ),
+
+    /**
+     * Get Orders State by idOrder (admin role)
+     * @param idOrder
+     * @returns {Promise<any>}
+     */
+    getOrderStateById: (idOrder) => new Promise(
+        (resolve,reject) =>{
+            db.query(     
+                'SELECT Time(updateDate) as hora, date_format(updateDate, "%Y/%m/%d") as fecha, lastState, newState FROM upgradeOrderState where orderId = ?',
+                [idOrder], 
+                (err, rows, fields) =>{
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return  resolve(rows && Array.isArray(rows) ? rows : []);
+                    } else {
+                        return reject({
+                            status: 400, 
+                            message: 'No tiene estados registrados'
+                        });
+                    }
+                }
+            )
+        }
+    ),
+  
+    
+    /**
+     * Check if order exists on database and get its data
      * @param code
      * @param userId
      * @returns {Promise<any>}

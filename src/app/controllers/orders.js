@@ -1,6 +1,6 @@
 const controller = {};
 
-const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, upGradeOrderSate, getOrderById, getOrders} = require('../services/orders');
+const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, upGradeOrderSate, getOrderById, getOrders, getAdminOrdersById, getOrderStateById} = require('../services/orders');
 
 
 controller.newOrder = async (req,res,next) => {
@@ -61,9 +61,9 @@ controller.getUserOrders = async (req,res, next) => {
 controller.getOrderById = async(req,res,next) => {
     try{
 
-        let codeDelivery = req.params.code;
+        let orderId = req.params.id;
 
-        const order = await getOrderById(req.userId, codeDelivery)
+        const order = await getOrderById(orderId)
 
         if(!order) {
             return res.status(404).send('Detalles no disponibles');  
@@ -74,6 +74,42 @@ controller.getOrderById = async(req,res,next) => {
         res.status(err.status ? err.status : 500).send({error: err.message});  
     }
 }
+
+
+controller.getAdminOrdersById = async(req,res,next) => {
+    try{
+
+        let orderId = req.params.id;
+
+        const order = await getAdminOrdersById(orderId)
+
+        if(!order) {
+            return res.status(404).send('Detalles no disponibles');  
+        }
+        return res.status(200).send({data: order})
+
+    }catch(err){
+        res.status(err.status ? err.status : 500).send({error: err.message});  
+    }
+}
+
+controller.getOrderStateById = async(req,res,next) => {
+    try{
+
+        let orderId = req.params.id;
+
+        const order = await getOrderStateById(orderId)
+
+        if(!order) {
+            return res.status(404).send('Detalles no disponibles');  
+        }
+        return res.status(200).send({data: order})
+
+    }catch(err){
+        res.status(err.status ? err.status : 500).send({error: err.message});  
+    }
+}
+
 
 controller.upGradeOrderState = async(req, res, next) => {
     const {newState, lastState, orderId} = req.body;

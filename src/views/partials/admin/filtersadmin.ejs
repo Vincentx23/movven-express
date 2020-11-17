@@ -8,12 +8,9 @@
     <div class="collapse show" id="collapseaddpedidos">
         <div class="card-body">
             <div class="container-fluid">
-
-                <form>
-                    <div class="container">
+                <form>              
                         <div class="form-row">
-
-                            <div class="form-group col-lg-6">
+                            <div class="form-group col-md-6">
                                 <label for="order-status">Estado del Pedido</label>
                                 <select class="form-control" id="order-status">
                                     <option value=null>Seleccione un estado</option>
@@ -27,32 +24,13 @@
                                     <option value=7>No Entregado</option>
                                     <option value=8>Rechazado</option>
                                 </select>
-                            </div>
-
-                            <div class="form-group col-lg-3">
-                                <label for="">Fecha del Pedido</label>
-                                <br>
-                                &nbsp;
-                                <input type="date" id="order-date" style="margin-top: 1%;">
-                            </div>
-
-                        <!-- <div class="form-group col-md-6" >
-                                <label for="order-date">Fecha del Pedido</label>
-                                <input id="order-date" width="276" />
-                                <script>
-                                    $('#order-date').datepicker({
-                                    uiLibrary: 'bootstrap4'
-                                    });
-                                </script>  
-                            
-                            </div> -->
-                            <div class="col align-self-center">
-                                <button type="button" id="btn-order" class="btn btn-secondary">Consultar</button>
-
-                            </div>
-                        </div>
-                        <br>
-                    </div>
+                            </div>                   
+                            <div class="form-group col-md-6">
+                                <label for="inputEmail4">Fecha</label>
+                                <input type="date" class="form-control" id="order-date" >
+                              </div>                        
+                        </div>                    
+                        <button  type="submit" value="Submit" class="btn btn-primary btn-lg " id="btn-order">Consultar</button>
                 </form>
             </div>
         </div>

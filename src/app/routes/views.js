@@ -42,5 +42,13 @@ router.get('/users', function (req, res) {
 
 });
 
+router.get('/driversorders', function (req, res) {
+	res.render('driversorders',
+		{
+			message: req.flash('driver orders managent')
+		});
+
+});
+
 
 module.exports = router

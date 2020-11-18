@@ -19,6 +19,8 @@ $(document).ready(function () {
                     window.location.replace('/admin');
                 }else if(data.user.rol === 1) {
                     window.location.replace('/dashboard');
+                }else if(data.user.rol ==2){
+                    window.location.replace('/driversorders');
                 }
             },
             error: function (xhr, status, error) {

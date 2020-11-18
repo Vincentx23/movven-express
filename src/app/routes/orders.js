@@ -1,9 +1,13 @@
 const router = require('express').Router();
-const {newOrder,getOrders, getUserOrders, upGradeOrderState, getOrderStateById, getOrderById, getAdminOrdersById } = require('../controllers/orders')
+const {newOrder,getOrders, getUserOrders, 
+    upGradeOrderState, getOrderStateById, getOrderById, 
+    getAdminOrdersById , getConductorOrders
+} = require('../controllers/orders')
 const verifyToken = require ('../middlewares/verifyToken');
 
 
 router.route('/order')
+    .get(verifyToken, getConductorOrders)
     .post(verifyToken, newOrder)
     .put(verifyToken, upGradeOrderState)
 

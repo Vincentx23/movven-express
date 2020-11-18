@@ -247,6 +247,32 @@ module.exports = {
             }
     ),
 
+    
+    /**
+     * Get conductors orders data (conductor role)
+     * @param idUser
+     * @returns {Promise<any>}
+     */
+    getConductorOrders: (idUser) => new Promise( 
+        (resolve, reject) => {
+            db.query(
+                'SELECT createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, orderId FROM orders ord INNER JOIN conductor cd ON ord.id = cd.orderId WHERE cd.userId = ?',
+                [idUser],
+                (err, rows, fields) =>{
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return  resolve(rows && Array.isArray(rows) ? rows : []);
+                    } else {
+                        return reject({
+                            status: 400, 
+                            message: 'No tiene pedidos asignados'
+                        });
+                    }
+                }
+            )
+        }
+    ),
+
     /**
      * Get Orders State by idOrder (admin role)
      * @param idOrder

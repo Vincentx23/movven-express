@@ -1,6 +1,8 @@
 const controller = {};
 
-const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, upGradeOrderSate, getOrderById, getOrders, getAdminOrdersById, getOrderStateById} = require('../services/orders');
+const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, 
+    upGradeOrderSate, getOrderById, getOrders, 
+    getAdminOrdersById, getOrderStateById, getConductorOrders} = require('../services/orders');
 
 
 controller.newOrder = async (req,res,next) => {
@@ -85,6 +87,20 @@ controller.getAdminOrdersById = async(req,res,next) => {
 
         if(!order) {
             return res.status(404).send('Detalles no disponibles');  
+        }
+        return res.status(200).send({data: order})
+
+    }catch(err){
+        res.status(err.status ? err.status : 500).send({error: err.message});  
+    }
+}
+
+controller.getConductorOrders = async(req,res,next) => {
+    try{
+        const order = await getConductorOrders(req.userId)
+
+        if(!order) {
+            return res.status(404).send('No tiene ordenes asignadas');  
         }
         return res.status(200).send({data: order})
 

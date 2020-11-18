@@ -312,16 +312,16 @@ module.exports = {
      * @param lastState
      * @returns {Promise<any>}
      */
-    upGradeOrderSate: (userId, orderId, newState, lastState) => new Promise(
+    upGradeOrderSate: ( orderId, newState) => new Promise(
         (resolve, reject) => {
             db.query(
-                'UPDATE orders SET state = ? WHERE userId = ? AND id = ?'
-                [newState, userId, orderId],
+                'UPDATE orders SET state = ? WHERE id = ?',
+                [newState, orderId],
                 (err, res) => {
                     if(err) {
                         return reject({
-                            status: 405,
-                            message: 'Error al actualizar el estado, intente nuevamente'
+                            status: 400,
+                            message: err
                         });
                     } else {
                         return resolve ({
@@ -332,12 +332,12 @@ module.exports = {
                 }
             ),
             db.query(
-                'INSERT INTO upgradeOrderState SET ?',
-                {orderId, lastState, newState},
+                'INSERT INTO upgradeOrderState (orderId, newState) VALUES(?,?)',
+                [orderId, newState],
                 (err,res) => {
                     if(err) {
                         return reject({
-                            status: 405,
+                            status: 400,
                             message: 'Error al actualizar el estado, intente nuevamente'
                         });
                     } else {

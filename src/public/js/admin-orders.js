@@ -1,4 +1,6 @@
+
 $(document).ready(function () {
+    
     
      /**
      * Event to load order data by date and state
@@ -19,7 +21,101 @@ $(document).ready(function () {
         }
     });
 
+    /**
+     * Event to asing conductor to a order 
+     */
+    $(this).on('change','#select-conductor', function (e) {
+        //Conductor selected
+         let userId = $(this, '#select-conductor option:selected').val();
+         let orderId = $(this, '#select-conductor').parent().attr('data-order')
+
+         asingConductorOrder(userId,orderId)
+      });
     
+      
+    /**
+     * Event to update orderstatus 
+     */
+    $(this).on('change','#order-status', function (e) {
+        //Conductor selected
+         let newState = parseInt($(this, '#order-status option:selected').val());
+         let orderId = parseInt($(this, '#order-status').parent().attr('data-order'))
+
+        if(newState === null) {
+            alert('elija un estado')
+        }
+        updateOrderStatus(orderId, newState)
+      });
+
+
+      /**
+       * Function to update orders status
+       * @param {*} userId 
+       * @param {*} orderId 
+       * @param {*} conductorId 
+       */
+    
+      function updateOrderStatus(orderId, newState){
+        $.ajax({
+            type: 'put',
+            url: '/order',
+            contentType: 'application/json; charset=utf-8',
+            headers: {
+                'x-access-token': window.localStorage.getItem('x-access-token')
+            },
+            data: JSON.stringify({
+                orderId: orderId,
+                newState: newState
+            }),
+            dataType: 'json',
+            success: function (data) {
+                alert('estado del pedido actualizado')
+            },
+            error: function (xhr, status, error) {
+                if (xhr && xhr.responseJSON && xhr.responseJSON.error) {
+                    alert(error)
+              
+                } else {
+                    alert('Campos requeridos vacios')
+                }
+            },
+        })
+      }
+
+      /**
+       * Function to asing conductors to orders
+       * @param {*} userId 
+       * @param {*} orderId
+       */
+      function asingConductorOrder(userId, orderId){
+        $.ajax({
+            type: 'post',
+            url: '/conductor',
+            contentType: 'application/json; charset=utf-8',
+            headers: {
+                'x-access-token': window.localStorage.getItem('x-access-token')
+            },
+            data: JSON.stringify({
+                userId: userId,
+                orderId: orderId,
+            }),
+            dataType: 'json',
+            success: function (data) {
+                loadConductors(null, null);
+                alert('Conductor asignado al pedido')
+            },
+            error: function (xhr, status, error) {
+                if (xhr && xhr.responseJSON && xhr.responseJSON.error) {
+                   alert(error)
+                } else {
+                    alert('Campos requeridos vacios')
+                }
+            },
+        })
+      }
+
+
+   
     /**
      * 
      * Function to get conductors users
@@ -140,7 +236,7 @@ $(document).ready(function () {
             error: function (xhr, status, error) {
                 if (xhr && xhr.status && xhr.status >= 400 && xhr.status <= 404) {
                     $('#tbody-orders').empty();
-                    $('#tbody-orders').html(xhr.responseJSON.error);
+                    $('#tbody-orders').html('No tiene datos registrados');
                 } else {
                     alert('NO ESTA AUTORIZADO');
                     window.location.replace('/');
@@ -168,15 +264,15 @@ $(document).ready(function () {
         '<td>'+createdAt+'</td>' +
         '<td>'+clientName+'</td>' +
         '<td>'+idDelivery + '</td>' +
-        '<td>' +
-            '<select class="form-control" id="select-conductor">'+
+        '<td data-order="'+orderId+'">' +
+            '<select class="form-control"  id="select-conductor">'+
                 '<option value="null">Seleccione conductor</option>'+
-               '<option value="'+conductorVal+'">'+conductorName+'</option>'+
+                '<option  value="'+conductorVal+'">'+conductorName+'</option>'+
             '</select>'+
         '</td>' +
         '<td>'+phone+'</td>'+
         '<td>'+orderDescription + '</td>'+
-        '<td>' +                                
+        '<td data-order="'+orderId+'">' +                                
           '<select class="form-control" id="order-status">'+
             '<option value=null>Seleccione un estado</option>'+
             '<option value=1>No verificado</option>'+
@@ -189,7 +285,7 @@ $(document).ready(function () {
             '<option value=8>Rechazado</option> ' +
          '</select>'+
         '</td>'+
-        '<td>'+                 
+        '<td id="btn-detail">'+                 
           '<button type="button" data-id="'+ orderId+'" id="btnDetalle" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modal-content-orders"><i class="fas fa-eye"></i> Más detalles</button></td>' +
         '</td>' +
       '</tr>'; 
@@ -250,7 +346,6 @@ $(document).ready(function () {
                     $('#modalDetailsBody').append(generateDetailErrorMoral())
                 } else {
                     alert('NO ESTA AUTORIZADO');
-                    //window.location.replace('/');
                 }
             },
         });
@@ -386,7 +481,7 @@ $(document).ready(function () {
     }
 
     function generateStateLine(estado, hora, fecha ){
-        return'                <li>'+
+        return'          <li>'+
         '                  <strong>'+estado+'</strong>'+
         '                  <div>                             '+
         '                    <span> <i class="fas fa-clock"></i> Hora:</span> <span>'+hora+'</span>'+
@@ -396,7 +491,7 @@ $(document).ready(function () {
         '                </li>';
     }
 
-    function generateStateLineError(estado, hora, fecha ){
+    function generateStateLineError(){
         return'           <li>'+
         '                  <strong>No hay estado registrado</strong>'+
         '                </li>';
@@ -427,5 +522,4 @@ $(document).ready(function () {
         window.location.replace('/');
     }
     
-
 })

@@ -112,16 +112,16 @@ controller.getOrderStateById = async(req,res,next) => {
 
 
 controller.upGradeOrderState = async(req, res, next) => {
-    const {newState, lastState, orderId} = req.body;
+    const {newState,  orderId} = req.body;
     try{
 
         if(!newState){
-            return res.status(400).json({ message: "Ingrese todos los campos requeridos" }) 
+            return res.status(400).send({ message: "Ingrese todos los campos requeridos" }) 
    
         }
 
-        upGradeOrderSate(req.userId, orderId, newState, lastState);
-        res.status(200).json({message:'Estado del pedido actualizado'});
+        await upGradeOrderSate(orderId, newState);
+        res.status(200).send({message:'Estado del pedido actualizado'});
         
     }catch(err) {
         res.status(err.status ? err.status : 500).send({error: err.message});  

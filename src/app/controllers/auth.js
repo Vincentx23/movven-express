@@ -43,12 +43,10 @@ controller.register = async (req, res, next) => {
 controller.login = async (req,res,next) => {
     try{
         const {email, password}  = req.body; 
-        const correo = email.toLowerCase()
-
+        const correo = email.toLowerCase();
         if(!correo || !password) {
             return res.status(400).send({error:"Campos vacios."});
         }
-
         const user = await checkUserInDatabase(correo)
 
 

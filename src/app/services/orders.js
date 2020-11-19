@@ -18,10 +18,10 @@ module.exports = {
         * @param userId
         * @returns {Promise<any>}
        */
-    newOrder: (clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId) => new Promise(
+    newOrder: (clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId, createdAt) => new Promise(
         (resolve, reject) => {
             db.query('INSERT INTO orders SET ?',
-                { clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId },
+                { clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId,createdAt },
                 (err, res) => {
                     if (err) {
                         console.log(err);
@@ -128,7 +128,7 @@ module.exports = {
         (resolve,reject) =>{
             if(date==='null' || state==='null') {
                 db.query(
-                    'SELECT * FROM orders WHERE userId = ? ORDER BY createdAt DESC',
+                    'SELECT * FROM orders WHERE userId = ? ORDER BY  `createdAt` DESC',
                     [userId], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);

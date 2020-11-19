@@ -7,6 +7,9 @@ const {newOrder, getUserOrders, checkCodeDeliveryInDatabase,
 
 controller.newOrder = async (req,res,next) => {
     const {clientName, phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery, payment} = req.body; 
+    var createdAt = new Date().toLocaleString({
+        timeZone: "America/Bogota"
+    });
     try{
 
         if(!clientName || !phone || !city || !distric || !amountPakages || !totalDimensions || !directionDetails || !orderDescription || !limitDate || !codeDelivery) {
@@ -22,7 +25,7 @@ controller.newOrder = async (req,res,next) => {
      
     }catch(err) {
         //Si capta un error de la peticion del servicio de verificacion de code, significa que el codigo no existe, por tanto dejamos registrar la peticion
-        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment,req.userId);
+        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment,req.userId,createdAt);
         res.status(200).json({message: 'Pedido registrado'});
     }
 }
@@ -36,7 +39,6 @@ controller.getOrders = async (req,res, next) => {
         if(!orders) {
             return res.status(404).send('No tiene ordenes registradas');
         }
-
         return res.status(200).send({data: orders})
     }catch(err) { 
         res.status(err.status ? err.status : 500).send({error: err.message});  
@@ -47,7 +49,7 @@ controller.getUserOrders = async (req,res, next) => {
     try {
         let state = req.params.state;
         let date = req.params.date;
-        
+
         let orders = await getUserOrders(req.userId,date,state);
 
         if(!orders) {

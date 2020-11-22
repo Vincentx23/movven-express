@@ -48,17 +48,7 @@
           <div class="">
 
             <!-- DataTales Example -->
-            <div class="card shadow mb-12">
-              <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold movven-color"><strong>Tabla de Pedidos</strong> </h6>
-              </div>
-              <div class="card-body">
-                <div class="table-responsive">
-                  <%- include ('partials/driver/tabla') %>
-                </div>
-              </div>
-            </div>
-
+                  <%- include ('partials/driver/tabla') %>           
           </div>
           <!-- /.container-fluid -->
         </div>
@@ -89,6 +79,15 @@
   <i class="fas fa-angle-up"></i>
 </a>-->
 
+<<<<<<< HEAD
+<script>
+  $(document).ready(function() {
+    $('#tabledriver').DataTable();
+} );
+</script>
+<script src="js/admin-orders.js"></script>
+=======
 <script src="js/driver-orders.js"></script>
+>>>>>>> 464ce981dc942fd75ebff872ee6e676c9f1e0d7f
 
 <%- include ('partials/general/scripts') %>

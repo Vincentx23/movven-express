@@ -1,67 +1,48 @@
-<!-- Image and text -->
 <nav class="navbar navbar-dark bg-dark">
-    <a class="navbar-brand" href="#">
-   
+    <a class="navbar-brand" href="#">   
     </a>
   </nav>
-
-<div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100 p-l-85 p-r-85 p-t-55 p-b-55">
-            <form class="login100-form validate-form flex-sb flex-w" id="form-login">
-               <div style=" text-align:center">            
-                <img src="images/movven-logo.png" width="50%" height="70%" class="d-inline-block align-top" alt="" loading="lazy">
-                <h4  style="color:  #b846af;" >
-                 <strong>Cuenta de Acceso</strong>   
-                </h4>
-                               
+  <main class="d-flex align-items-center min-vh-100 py-3 py-md-0">
+    <div class="container">
+      <div class="card login-card">
+        <div class="row no-gutters">
+          <div class="col-md-5">
+            <img src="assets/images/dalivery.jpg" alt="login" class="login-card-img">
+          </div>
+          <div class="col-md-7" >
+            <div class="card-body" style="align-items: center;">
+              <div class="brand-wrapper">
+                <img src="assets/images/movven-logo.png" alt="logo" class="logo">
+              </div>             
+              <form id="form-login" action="#!">
+                <div id="alert1"></div>
+                <label >Correo Electrónico</label>
+                  <div class="form-group">                    
+                    <input type="email" name="email" id="email" class="form-control" placeholder="Correo Electrónico" required>
+                  </div>
+                  <label >Contraseña</label>
+                  <body>
+                  
+                  <div class="form-group mb-4">
+            
+                    <input type="password" name="password1" id="password" class="form-control password1" placeholder="***********" required>
+                    <span class=""> <i id="icon-eye" class="fa fa-fw fa-eye password-icon show-password"></i></span>
+                   
+                  </div>
+                  <input name="login" id="login" class="btn btn-block login-btn mb-4" type="submit" value="Iniciar sesión">
+                </form>
+                <footer class="sticky-footer bg-white">
+                  <div class="container my-auto">
+                      <div class="copyright text-center my-auto">
+                          <span>Copyright &copy; Movven Express <br> 
+                            <!-- <i class="fas fa-project-diagram "></i> Developed by <a href="https://seta.agency/">Seta Digital Solutions</a></span> -->
+                      </div>
+                  </div>
+              </footer>     
             </div>
-           
-                <div class="login100-form-title" id="alert1"></div>
-                <span class="txt1 p-b-11">
-                     Correo Electrónico
-                </span>
-                <div class="wrap-input100 validate-input m-b-36" data-validate = "Debe Ingresar un correo electrónico">
-                    <input class="input100" type="email" name="email" id="email">
-                    <span class="focus-input100"></span>
-                </div>
-                
-                <span class="txt1 p-b-11">
-                    Contraseña
-                </span>
-                <div class="wrap-input100 validate-input m-b-12" data-validate = "Debe ingresar una contraseña">
-                    <span class="btn-show-pass">
-                        <i class="fa fa-eye"></i>
-                    </span>
-                    <input class="input100" type="password" name="password" id="password" >
-                    <span class="focus-input100"></span>
-                </div>
-                
-                <!-- <div class="flex-sb-m w-full p-b-48">
-                    <div class="contact100-form-checkbox">
-                        <input class="input-checkbox100" id="ckb1" type="checkbox" name="remember-me">
-                        <label class="label-checkbox100" for="ckb1">
-                            Recordarme
-                        </label>
-                    </div>
-
-                   <div>
-                        <a href="#" class="txt3">
-                            Forgot Password?
-                        </a>
-                    </div> 
-                </div> -->
-
-                <div  style=" margin-left: auto;   margin-right: auto;">
-                    <br>
-                    <button type="submit"class="login100-form-btn">
-                        Acceder
-                    </button>
-                </div>
-            </form>
+          </div>
         </div>
+      </div>
     </div>
-</div>
-
-
+  </main>
 <div id="dropDownSelect1"></div>

@@ -27,7 +27,7 @@ $(document).ready(function () {
                 if (xhr && xhr.responseJSON && xhr.responseJSON.error) {
                     document.getElementById('alert1').innerHTML =
                     '<div class="alert alert alert-danger alert-dismissible fade show" role="alert" id="alert1" >\n'+
-                        ' <p>' + xhr.responseJSON.error + '</p>' +
+                        ' <p style="margin-top: 0; margin-bottom: 0rem;">' + xhr.responseJSON.error + '</p>' +
                         '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
                         '<span aria-hidden="true">&times;</span>\n' +
                         '</button>  \n'+ 

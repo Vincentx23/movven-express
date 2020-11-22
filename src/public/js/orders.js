@@ -66,22 +66,22 @@ $(document).ready(function () {
     });
 
     /**
-     * Event to load specific order data by code
+     * Event to load specific order data by id
      */
     $(this).on('click','#btnDetalle', function (e) {
         e.preventDefault();
-        let code = $(this).attr('data-id')
-        loadOrderById(code)
+        let orderId = $(this).attr('data-id')
+        loadOrderById(orderId)
     })
 
     /**
-     * Function to get an order data by code (id)
-     * @param {*} codeDelivery 
+     * Function to get an order data by id
+     * @param {*} orderId 
      */
-    function loadOrderById(codeDelivery) {
+    function loadOrderById(orderId) {
         $.ajax({
             type: 'get',
-            url: '/order/' + codeDelivery,
+            url: '/order/' + orderId ,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             headers: {
@@ -116,7 +116,7 @@ $(document).ready(function () {
                     alert('no data')
                 } else {
                     alert('NO ESTA AUTORIZADO');
-                    window.location.replace('/');
+                   // window.location.replace('/');
                 }
             },
         });
@@ -124,6 +124,7 @@ $(document).ready(function () {
 
     /**
      * Function to generate table order template
+     * @param {*} orderId 
      * @param {*} createdAt 
      * @param {*} idDelivery 
      * @param {*} clientName 
@@ -135,7 +136,7 @@ $(document).ready(function () {
      * @param {*} limitDate
      */
 
-    function generateTableOrdersBodyTemplate(createdAt, idDelivery, clientName, phone, city,distric, state, orderDescription) {
+    function generateTableOrdersBodyTemplate(orderId,createdAt, idDelivery, clientName, phone, city,distric, state, orderDescription) {
         return '<tr>\n' +
             '<td>'+ createdAt +'</td>\n' +
             '<td id="td-codeDelivery" name="td-codeDelivery">'+idDelivery+'</td>\n' +
@@ -144,7 +145,7 @@ $(document).ready(function () {
            // '<td>'+city+'</td>\n' +
             '<td>'+orderDescription+'</td>\n' +
             '<td>'+state+'</td>\n' +
-            '<td> <button type="button" id="btnDetalle" data-id="'+idDelivery+'" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-eye"></i> Más detalles</button></td>'+
+            '<td> <button type="button" id="btnDetalle" data-id="'+orderId+'" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#staticBackdrop"><i class="fas fa-eye"></i> Más detalles</button></td>'+
             '</tr>';
         
 
@@ -254,7 +255,7 @@ $(document).ready(function () {
                     } else {
                         state = 'Rechazado'
                     }
-                    $('#tbody-orders').append(generateTableOrdersBodyTemplate(order.createdAt, order.codeDelivery, order.clientName, order.phone, order.city, order.distric,state, order.orderDescription))
+                    $('#tbody-orders').append(generateTableOrdersBodyTemplate(order.id,order.createdAt, order.codeDelivery, order.clientName, order.phone, order.city, order.distric,state, order.orderDescription))
                 })
             },
             error: function (xhr, status, error) {

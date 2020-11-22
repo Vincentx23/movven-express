@@ -126,7 +126,7 @@ module.exports = {
 
     getUserOrders: (userId,date, state) => new Promise(
         (resolve,reject) =>{
-            if(date==='null' || state==='null') {
+            if(date==='null'  && state==='null') {
                 db.query(
                     'SELECT * FROM orders WHERE userId = ? ORDER BY  `createdAt` DESC',
                     [userId], 
@@ -230,12 +230,12 @@ module.exports = {
     getAdminOrdersById: (idOrder) => new Promise(
         (resolve,reject) =>{
                 db.query(
-                    'SELECT ord.id, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails,orderDescription, limitDate, payment, us.id as "userId", name, email, (select name from users where id = cd.userId) as "conductor" FROM orders ord INNER JOIN users us ON ord.userId = us.id INNER JOIN conductor cd ON ord.id = cd.orderId WHERE ord.id = ? ORDER BY createdAt DESC',
+                    'CALL getAdminOrderDetails (?)',
                     [idOrder], 
                     (err, rows, fields) =>{
                         if(err) return reject(err);
                         if(Array.isArray(rows) && rows.length >0) {
-                            return  resolve(rows && Array.isArray(rows) ? rows : []);
+                            return  resolve(rows && Array.isArray(rows) ? rows[0] : []);
                         } else {
                             return reject({
                                 status: 400, 

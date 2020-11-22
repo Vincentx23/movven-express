@@ -14,7 +14,7 @@ router.route('/order')
 router.route('/orders/:state/:date')
     .get(verifyToken, getOrders)
 
-router.route('/order/:state/:date')
+router.route('/userOrders/:state/:date')
     .get(verifyToken, getUserOrders)
 
 router.route('/order/:id')

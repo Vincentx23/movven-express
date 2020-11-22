@@ -107,6 +107,7 @@ $(document).ready(function () {
         '<td>' + rol + '</td>' +
         '</tr>';
     }
+  
      // Load initial users
      if (window.localStorage.getItem('x-access-token')) {
         loadUsers()

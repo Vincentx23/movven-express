@@ -16,8 +16,7 @@ $(document).ready(function () {
             alert('Seleccione un estado de pedido')
         } 
         else {
-            loadConductors(state, date);
-            
+            loadOrders(state,date)            
         }
     });
 
@@ -36,10 +35,10 @@ $(document).ready(function () {
     /**
      * Event to update orderstatus 
      */
-    $(this).on('change','#order-status', function (e) {
+    $(this).on('change','#newOrder-status', function (e) {
         //Conductor selected
-         let newState = parseInt($(this, '#order-status option:selected').val());
-         let orderId = parseInt($(this, '#order-status').parent().attr('data-order'))
+         let newState = parseInt($(this, '#newOrder-status option:selected').val());
+         let orderId = parseInt($(this, '#newOrder-status').parent().attr('data-order'))
 
         if(newState === null) {
             alert('elija un estado')
@@ -101,7 +100,6 @@ $(document).ready(function () {
             }),
             dataType: 'json',
             success: function (data) {
-                loadConductors(null, null);
                 alert('Conductor asignado al pedido')
             },
             error: function (xhr, status, error) {
@@ -171,7 +169,7 @@ $(document).ready(function () {
      * Function to get conductors users
      * 
      */
-    function loadConductors (state, date) {
+    function loadConductors () {
         $.ajax({
             type: 'get',
             url: '/usersRole/' + 2,
@@ -181,24 +179,28 @@ $(document).ready(function () {
                 'x-access-token': window.localStorage.getItem('x-access-token')
             },       
             success: function (data) {
-                data.data.forEach(function(user) {
-                    loadOrders(state,date, user.name, user.id)
-                }
-                )
+                    $('select[name=select-conductor]').empty()
+                    $('select[name=select-conductor]').append(generateEmptyOption());
+                    data.data.forEach(function(user) {
+                        $('select[name=select-conductor]').append(generateSelectListTemplate(user.conductorId, user.name))          
+                    }
+                );
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.status && xhr.status >= 400 && xhr.status <= 404) {
-                    loadOrders(state,date, 'No tiene conductores', 'No tiene conductores registrados')
+                    //loadOrders(state,date, null, 'No tiene conductores registrados')
                 } else {
                     alert('Error desconocido');
                 }
             },
         });
     }
+
+
      /**
      * Function to load all user orders
      */
-    function loadOrders(state, date, conductorName, conductorVal) {
+    function loadOrders(state, date) {
         $('#tbody-orders').html('Cargando pedidos...');
         $.ajax({
             type: 'get',
@@ -229,9 +231,9 @@ $(document).ready(function () {
                     } else {
                         state = 'Rechazado'
                     }
-                    $('#tbody-orders').append(generateTableOrdersBodyTemplate(order.id,order.createdAt, order.codeDelivery, order.name, order.phone, order.city, order.distric,state, order.orderDescription, conductorName, conductorVal))
+                    $('#tbody-orders').append(generateTableOrdersBodyTemplate(order.id,order.createdAt, order.codeDelivery, order.name, order.phone, order.city, order.distric,state, order.orderDescription))
                 })
-            
+                loadConductors()
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.status && xhr.status >= 400 && xhr.status <= 404) {
@@ -245,6 +247,7 @@ $(document).ready(function () {
         });
     }
     
+
     /**
      * Function to generate table order template
      * @param {*} orderId
@@ -258,22 +261,22 @@ $(document).ready(function () {
      * @param {*} orderDescription
      * @param {*} limitDate
      */
-
-    function generateTableOrdersBodyTemplate(orderId,createdAt, idDelivery, clientName, phone, city,distric, state, orderDescription, conductorName, conductorVal) {
+ 
+    function generateTableOrdersBodyTemplate(orderId,createdAt, idDelivery, clientName, phone, city,distric, state, orderDescription) {
         return '<tr>'+
         '<td>'+createdAt+'</td>' +
         '<td>'+clientName+'</td>' +
         '<td>'+idDelivery + '</td>' +
         '<td data-order="'+orderId+'">' +
-            '<select class="form-control"  id="select-conductor">'+
+            '<select class="form-control"  name="select-conductor" id="select-conductor">'+
                 '<option value="null">Seleccione conductor</option>'+
-                '<option  value="'+conductorVal+'">'+conductorName+'</option>'+
+                //'<option value="'+conductorId+'">'+conductorName+'</option>'+
             '</select>'+
         '</td>' +
         '<td>'+phone+'</td>'+
         '<td>'+orderDescription + '</td>'+
         '<td data-order="'+orderId+'">' +                                
-          '<select class="form-control" id="order-status">'+
+          '<select class="form-control" id="newOrder-status">'+
             '<option value=null>Seleccione un estado</option>'+
             '<option value=1>No verificado</option>'+
             '<option value=2>Verificado</option>'+
@@ -317,6 +320,7 @@ $(document).ready(function () {
             success: function (data) {
                 data.data.forEach(function(order) {
                     let state; 
+                    let conductor;
                     if(order.state === 1){
                         state='No verificado'
                     } else if(order.state === 2) {
@@ -334,8 +338,14 @@ $(document).ready(function () {
                     } else {
                         state = 'Rechazado'
                     }
+
+                    if(order.conductor === undefined){
+                        conductor = 'No asignado'
+                    } else {
+                        conductor = order.conductor
+                    }
                     $('#modalDetailsBody').empty()
-                    $('#modalDetailsBody').append(generateDetailModal(order.name, order.createdAt, order.codeDelivery, order.conductor, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions, order.phone, state, order.orderDescription, order.payment))
+                    $('#modalDetailsBody').append(generateDetailModal(order.name, order.createdAt, order.codeDelivery, conductor, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions, order.phone, state, order.orderDescription, order.payment))
                 })
                 loadOrderStateById(orderId)
 
@@ -506,7 +516,7 @@ $(document).ready(function () {
     '            <h4>Información del pedido</h4>'+
     '            <br>                 '+
                 '<div class="row">'+
-                    'Seleccione un conductor para el pedido ' +
+                    'Los detalles del pedido no estan disponibles' +
                 '</div>'+
               '</div>'+
             '</div>'+
@@ -514,10 +524,29 @@ $(document).ready(function () {
     '</div>'+
     '</div>';
     }
+    
+    /**
+     * Function to generate select courses template 
+     * @param val
+     * @param text
+     * @returns {string}
+     */
+    function generateSelectListTemplate(val,text){
+        return '<option value="'+ val +'">' +text +'</option>';
+    }
+
+
+    /**
+     * Funtion to generate empty option on a select
+     */
+    function generateEmptyOption() {
+        return '<option value="null">Seleccione conductor</option>'
+      }
+  
 
     // Load initial orders
     if (window.localStorage.getItem('x-access-token')) {
-        loadConductors(null,null)
+        loadOrders(null,null)
     } else {
         window.location.replace('/');
     }

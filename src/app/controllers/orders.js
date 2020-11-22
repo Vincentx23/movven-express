@@ -49,7 +49,7 @@ controller.getUserOrders = async (req,res, next) => {
     try {
         let state = req.params.state;
         let date = req.params.date;
-
+         
         let orders = await getUserOrders(req.userId,date,state);
 
         if(!orders) {

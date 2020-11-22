@@ -3,7 +3,7 @@ $(document).ready(function () {
     /**
      * Event to create a new order
      */
-    $('#btn-newOrder').on('click', function (e) {
+    $('#btn-newOrder').one('click', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',
@@ -108,7 +108,7 @@ $(document).ready(function () {
                         state = 'Rechazado'
                     }
                     $('#staticBackdrop').empty()
-                    $('#staticBackdrop').append(generateModal(order.createdAt, order.codeDelivery, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions))
+                    $('#staticBackdrop').append(generateModal(order.createdAt, order.codeDelivery, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions, order.payment))
                 })
             },
             error: function (xhr, status, error) {
@@ -116,7 +116,6 @@ $(document).ready(function () {
                     alert('no data')
                 } else {
                     alert('NO ESTA AUTORIZADO');
-                   // window.location.replace('/');
                 }
             },
         });
@@ -151,7 +150,7 @@ $(document).ready(function () {
 
     }
 
-    function generateModal(createdAt,codeDelivery, city, distric, directionDetails, limitDate, amountPakages, totalDimensions, phone,state, clientName){
+    function generateModal(createdAt,codeDelivery, city, distric, directionDetails, limitDate, amountPakages, totalDimensions, pago){
         // Modal 
     return'<div class="modal-dialog">\n' +
         '<div class="modal-content">\n' +
@@ -197,7 +196,7 @@ $(document).ready(function () {
                 '<div class="col-sm">\n' + 
                 '<br>\n' +    
                     // Peso y dimensiones
-                    '<h6 class="m-0 font-weight-bold movven-color"><i class="fas fa-weight-hanging"></i> Peso y dimensiones</h6>\n'+'14.78 lb'+', ' +totalDimensions+
+                    '<h6 class="m-0 font-weight-bold movven-color"><i class="fas fa-weight-hanging"></i> Peso y dimensiones</h6>\n' +totalDimensions+
                 '</div>\n' + 
 
             '</div>\n' +   
@@ -205,7 +204,7 @@ $(document).ready(function () {
                 '<div class="col-sm">\n' +
                 '<br>\n' +  
                     //Pago total
-                    '<h6 class="m-0 font-weight-bold movven-color"><i class="fas fa-money-bill"></i> Pago total</h6>\n' +'12.56 $'+       
+                    '<h6 class="m-0 font-weight-bold movven-color"><i class="fas fa-money-bill"></i> Pago total</h6>\n' +pago+' $'+       
                 '</div>\n' +  
             '</div>\n' +
         '</div>\n' +
@@ -228,7 +227,7 @@ $(document).ready(function () {
         $('#tbody-orders').html('Cargando pedidos...');
         $.ajax({
             type: 'get',
-            url: '/order/' + state + '/' + date,
+            url: '/userOrders/' + state + '/' + date,
             contentType: 'application/json; charset=utf-8',
             dataType: 'json',
             headers: {

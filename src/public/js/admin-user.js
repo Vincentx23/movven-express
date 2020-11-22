@@ -75,7 +75,7 @@ $(document).ready(function () {
                     } else {
                         rol = 'Conductor'
                     }
-                    $('#tbody-users').append(generateTableUsersBodyTemplate(user.name, user.email, user.password, rol));                
+                    $('#tbody-users').append(generateTableUsersBodyTemplate(user.name, user.email, rol));                
                 })
             },
             error: function (xhr, status, error) {
@@ -99,11 +99,10 @@ $(document).ready(function () {
      * @param {*} Rol 
      */
 
-    function generateTableUsersBodyTemplate(nombre, correo, contra, rol) {
+    function generateTableUsersBodyTemplate(nombre, correo, rol) {
         return '<tr>' +
         '<td>' + nombre + '</td>' +
         '<td>' + correo + '</td>' +
-        '<td>' + contra + '</td>' +
         '<td>' + rol + '</td>' +
         '</tr>';
     }

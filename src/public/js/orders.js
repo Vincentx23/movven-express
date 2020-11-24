@@ -3,7 +3,7 @@ $(document).ready(function () {
     /**
      * Event to create a new order
      */
-    $('#btn-newOrder').one('click', function (e) {
+    $('#btn-newOrder').on('click', function (e) {
         e.preventDefault();
         $.ajax({
             type: 'post',

@@ -9,12 +9,10 @@ module.exports = {
         return new Promise((resolve, reject) => {
             readXlsxFile(file).then((rows) => {
                 rows.shift();
-                var createdAt = new Date().toLocaleString({
-                    timeZone: "America/Bogota"
-                });
-                const values = rows.map((row) =>  [...row.slice(0), userId,createdAt]);
 
-                const keys = ['codeDelivery', 'clientName', 'state', 'city', 'distric', 'directionDetails', 'phone', 'orderDescription', 'amountPakages', 'totalDimensions', 'limitDate', 'payment', 'userId', 'createdAt'];
+                const values = rows.map((row) =>  [...row.slice(0), userId]);
+
+                const keys = ['codeDelivery', 'clientName', 'state', 'city', 'distric', 'directionDetails', 'phone', 'orderDescription', 'amountPakages', 'totalDimensions', 'limitDate', 'payment', 'userId'];
 
                 if(values.length === 0) {
                     reject(['E503', new Error("Excel file haven't data")])

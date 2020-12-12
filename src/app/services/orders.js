@@ -18,10 +18,10 @@ module.exports = {
         * @param userId
         * @returns {Promise<any>}
        */
-    newOrder: (clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId) => new Promise(
-        (resolve, reject) => {
+    newOrder: (clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, createdAt, userId)  => new Promise(
+        (resolve, reject) => {      
             db.query('INSERT INTO orders SET ?',
-                { clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, userId },
+                { clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, createdAt, userId },
                 (err, res) => {
                     if (err) {
                         console.log(err);
@@ -336,9 +336,10 @@ module.exports = {
      * @param orderId
      * @param newState
      * @param lastState
+     * @param updateDate
      * @returns {Promise<any>}
      */
-    upGradeOrderSate: ( orderId, newState) => new Promise(
+    upGradeOrderSate: ( orderId, updateDate, newState) => new Promise(
         (resolve, reject) => {
             db.query(
                 'UPDATE orders SET state = ? WHERE id = ?',
@@ -358,8 +359,8 @@ module.exports = {
                 }
             ),
             db.query(
-                'INSERT INTO upgradeOrderState (orderId, newState) VALUES(?,?)',
-                [orderId, newState],
+                'INSERT INTO upgradeOrderState (orderId, updateDate,newState) VALUES(?,?,?)',
+                [orderId, updateDate,newState],
                 (err,res) => {
                     if(err) {
                         return reject({

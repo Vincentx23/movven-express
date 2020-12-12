@@ -2,9 +2,10 @@ const path = require("path");
 const controller = {};
 
 const {processExcel, downloadTemplate} = require('../services/excel');
+const dbUtils = require('../utils/db');
 
 
-controller.upload = (req,res) => {
+controller.upload = async (req,res) => {
     try {
         if (req.file === undefined) {
             return res.status(400).json({
@@ -15,8 +16,9 @@ controller.upload = (req,res) => {
         }
 
         const file = path.join(__basedir, "/data/uploads/", req.file.filename);
+        const createdAt = await dbUtils.actualDate()
 
-        processExcel(file, req.userId)
+        processExcel(file, createdAt[0].date, req.userId)
             .then(() => {
                 res.status(200).json({
                     success: true,

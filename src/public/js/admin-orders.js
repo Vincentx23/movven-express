@@ -13,7 +13,26 @@ $(document).ready(function () {
             date = null
         }
         if( state === 'null' && date){
-            alert('Seleccione un estado de pedido')
+            // alert('Seleccione un estado de pedido')
+            toastr.warning("Seleccione un estado de pedido","",{            
+            
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-center",
+                "preventDuplicates": false,
+                "showDuration": "1000",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              });
+         
+            // Toast('error', 'toast-bottom-full-width', 'Seleccione un estado de pedido')
         } 
         else {
             loadOrders(state,date)            
@@ -100,7 +119,23 @@ $(document).ready(function () {
             }),
             dataType: 'json',
             success: function (data) {
-                alert('Conductor asignado al pedido')
+                // alert('Conductor asignado al pedido')
+                toastr.success("Conductor asignado al pedido correctamente","",{
+                    "closeButton": true,
+                    "debug": false,
+                    "newestOnTop": false,
+                    "progressBar": true,
+                    "positionClass": "toast-bottom-center",
+                    "preventDuplicates": false,
+                    "showDuration": "10000",
+                    "hideDuration": "1000",
+                    "timeOut": "5000",
+                    "extendedTimeOut": "1000",
+                    "showEasing": "swing",
+                    "hideEasing": "linear",
+                    "showMethod": "fadeIn",
+                    "hideMethod": "fadeOut"
+                });
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.responseJSON && xhr.responseJSON.error) {

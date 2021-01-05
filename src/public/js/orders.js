@@ -3,8 +3,25 @@ $(document).ready(function () {
     /**
      * Event to create a new order
      */
-    $('#btn-newOrder').one('click', function (e) {
-        e.preventDefault();
+    $('#btn-newOrder').on('click', function (e) {
+        
+        let clientName = $('#clientName').val(); 
+        let phone = $('#phone').val(); 
+        let city= $('#city').val();
+        let distric = $('#distric').val();
+        let amountPakages = $('#amountPakages').val(); 
+        let totalDimensions= $('#totalDimensions').val();
+        let directionDetails =  $('#directionDetails').val();
+        let orderDescription = $('#orderDescription').val();
+        let limitDate = $('#limitDate').val();
+        let codeDelivery = $('#codeDelivery').val();
+        let payment =  $('#payment').val();
+
+        newOrder(clientName,phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery, payment);
+        
+    });
+
+    function newOrder (clientName, phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery, payment) {
         $.ajax({
             type: 'post',
             url: '/order',
@@ -13,17 +30,17 @@ $(document).ready(function () {
                 'x-access-token': window.localStorage.getItem('x-access-token')
             },
             data: JSON.stringify({
-                clientName: $('#clientName').val(),
-                phone: $('#phone').val(),
-                city: $('#city').val(),
-                distric: $('#distric').val(),
-                amountPakages: $('#amountPakages').val(),
-                totalDimensions: $('#totalDimensions').val(),
-                directionDetails: $('#directionDetails').val(),
-                orderDescription: $('#orderDescription').val(),
-                limitDate: $('#limitDate').val(),
-                codeDelivery: $('#codeDelivery').val(),
-                payment: $('#payment').val()
+                clientName:clientName,
+                phone: phone,
+                city: city,
+                distric: distric,
+                amountPakages: amountPakages,
+                totalDimensions: totalDimensions,
+                directionDetails: directionDetails,
+                orderDescription: orderDescription,
+                limitDate: limitDate,
+                codeDelivery: codeDelivery,
+                payment: payment
             }),
             dataType: 'json',
             success: function (data) {
@@ -46,7 +63,7 @@ $(document).ready(function () {
                 }
             },
         })
-    });
+    }
     /**
      * Event to load order data by date and state
      */

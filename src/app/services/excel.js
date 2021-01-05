@@ -4,17 +4,16 @@ const readXlsxFile = require("read-excel-file/node");
 const dbUtils = require('../utils/db');
 
 module.exports = {
-    processExcel(file, userId) {
+    processExcel(file, createdAt, userId)  {
         
         return new Promise((resolve, reject) => {
-            readXlsxFile(file).then((rows) => {
+            readXlsxFile(file).then((rows)  =>  {
                 rows.shift();
-                var createdAt = new Date().toLocaleString({
-                    timeZone: "America/Bogota"
-                });
-                const values = rows.map((row) =>  [...row.slice(0), userId,createdAt]);
 
-                const keys = ['codeDelivery', 'clientName', 'state', 'city', 'distric', 'directionDetails', 'phone', 'orderDescription', 'amountPakages', 'totalDimensions', 'limitDate', 'payment', 'userId', 'createdAt'];
+           
+                const values = rows.map((row) =>  [...row.slice(0),createdAt, userId]);
+
+                const keys = ['codeDelivery', 'clientName', 'state', 'city', 'distric', 'directionDetails', 'phone', 'orderDescription', 'amountPakages', 'totalDimensions', 'limitDate', 'payment','createdAt', 'userId'];
 
                 if(values.length === 0) {
                     reject(['E503', new Error("Excel file haven't data")])

@@ -3,15 +3,14 @@ const controller = {};
 const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, 
     upGradeOrderSate, getOrderById, getOrders, 
     getAdminOrdersById, getOrderStateById, getConductorOrders} = require('../services/orders');
+const dbUtils = require('../utils/db');
 
 
 controller.newOrder = async (req,res,next) => {
     const {clientName, phone, city, distric, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, codeDelivery, payment} = req.body; 
-    var createdAt = new Date().toLocaleString({
-        timeZone: "America/Bogota"
-    });
-    try{
+    const createdAt = await dbUtils.actualDate()
 
+    try{
         if(!clientName || !phone || !city || !distric || !amountPakages || !totalDimensions || !directionDetails || !orderDescription || !limitDate || !codeDelivery) {
             return res.status(400).json({ message: "Ingrese todos los campos requeridos" }) 
         }
@@ -25,7 +24,7 @@ controller.newOrder = async (req,res,next) => {
      
     }catch(err) {
         //Si capta un error de la peticion del servicio de verificacion de code, significa que el codigo no existe, por tanto dejamos registrar la peticion
-        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment,req.userId,createdAt);
+        newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, createdAt[0].date, req.userId);
         res.status(200).json({message: 'Pedido registrado'});
     }
 }
@@ -131,6 +130,7 @@ controller.getOrderStateById = async(req,res,next) => {
 
 controller.upGradeOrderState = async(req, res, next) => {
     const {newState,  orderId} = req.body;
+    const updateDate = await dbUtils.actualDate()
     try{
 
         if(!newState){
@@ -138,7 +138,7 @@ controller.upGradeOrderState = async(req, res, next) => {
    
         }
 
-        await upGradeOrderSate(orderId, newState);
+        await upGradeOrderSate(orderId,updateDate[0].date, newState);
         res.status(200).send({message:'Estado del pedido actualizado'});
         
     }catch(err) {

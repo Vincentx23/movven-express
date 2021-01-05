@@ -34,7 +34,6 @@ module.exports = {
     getConductors: () => new Promise(
         (resolve,reject) =>{
             db.query(
-                //'SELECT name, email, userType, con.id as "conductorId", us.id, con.orderId FROM users us INNER JOIN conductor con ON us.id = con.userId WHERE userType = 2',
                 'SELECT name, email, userType, id as "conductorId", id as "userId" FROM users WHERE userType = 2',
                 [], 
                 (err, rows, fields) =>{

@@ -13,26 +13,7 @@ $(document).ready(function () {
             date = null
         }
         if( state === 'null' && date){
-            // alert('Seleccione un estado de pedido')
-            toastr.warning("Seleccione un estado de pedido","",{            
-            
-                "closeButton": true,
-                "debug": false,
-                "newestOnTop": false,
-                "progressBar": true,
-                "positionClass": "toast-bottom-center",
-                "preventDuplicates": false,
-                "showDuration": "1000",
-                "hideDuration": "1000",
-                "timeOut": "5000",
-                "extendedTimeOut": "1000",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-              });
-         
-            // Toast('error', 'toast-bottom-full-width', 'Seleccione un estado de pedido')
+            alert('Seleccione un estado de pedido')
         } 
         else {
             loadOrders(state,date)            
@@ -119,23 +100,7 @@ $(document).ready(function () {
             }),
             dataType: 'json',
             success: function (data) {
-                // alert('Conductor asignado al pedido')
-                toastr.success("Conductor asignado al pedido correctamente","",{
-                    "closeButton": true,
-                    "debug": false,
-                    "newestOnTop": false,
-                    "progressBar": true,
-                    "positionClass": "toast-bottom-center",
-                    "preventDuplicates": false,
-                    "showDuration": "10000",
-                    "hideDuration": "1000",
-                    "timeOut": "5000",
-                    "extendedTimeOut": "1000",
-                    "showEasing": "swing",
-                    "hideEasing": "linear",
-                    "showMethod": "fadeIn",
-                    "hideMethod": "fadeOut"
-                });
+                alert('Conductor asignado al pedido')
             },
             error: function (xhr, status, error) {
                 if (xhr && xhr.responseJSON && xhr.responseJSON.error) {
@@ -380,7 +345,7 @@ $(document).ready(function () {
                         conductor = order.conductor
                     }
                     $('#modalDetailsBody').empty()
-                    $('#modalDetailsBody').append(generateDetailModal(order.name, order.createdAt, order.codeDelivery, conductor, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions, order.phone, state, order.orderDescription, order.payment))
+                    $('#modalDetailsBody').append(generateDetailModal(order.name, order.createdAt, order.codeDelivery, conductor, order.city, order.distric, order.directionDetails,order.limitDate,order.amountPakages, order.totalDimensions, order.phone, state, order.orderDescription, order.payment, order.clientName))
                 })
                 loadOrderStateById(orderId)
 
@@ -397,7 +362,7 @@ $(document).ready(function () {
     }
 
 
-    function generateDetailModal(name,createdAt,codeDelivery, conductor, city, distric, directionDetails, limitDate, amountPakages, totalDimensions, phone,state, orderDescription, payment){
+    function generateDetailModal(name,createdAt,codeDelivery, conductor, city, distric, directionDetails, limitDate, amountPakages, totalDimensions, phone,state, orderDescription, payment, clientName){
         return' <div class="container-fluid">'+
         '<div class="row">'+
           '<div class="col-md-7">  '+
@@ -412,6 +377,15 @@ $(document).ready(function () {
     '                  <i class="fas fa-building"></i> Empresa'+
     '                </h6>'+
     '                <span> '+name+' </span>                         '+
+    '              </div>                        '+
+    '              <!-- Nombre del cliente -->'+
+    '              <div class="col-4 col-sm-6">'+
+    '                <h6 class="m-0 font-weight-bold movven-color">'+
+    '                  <i class="fas fa-user-check"></i> Nombre del cliente'+
+    '                </h6>'+
+    '                <span> '+clientName+' </span>                         '+
+    '                <br> '+
+    '                <br>                      '+
     '              </div>                        '+
     '              <!-- Fecha -->'+
     '              <div class="col-4 col-sm-6">'+

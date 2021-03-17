@@ -6,7 +6,7 @@ controller.getUsers = async (req,res,next) => {
         try {
             let users = await getUsers();
             if(!users) {
-                return res.status(404).send('No tiene ordenes registradas');
+                return res.status(404).send('No tiene usuarios registrados');
             }
             return res.status(200).send({error:null,data: users})
         }catch(err) { 
@@ -18,7 +18,7 @@ controller.getUsersByRole= async (req,res,next) => {
     try {
         let users = await getConductors();
         if(!users) {
-            return res.status(404).send('No tiene ordenes registradas');
+            return res.status(404).send('No tiene usuarios usuarios');
         }
         return res.status(200).send({data: users})
     }catch(err) { 

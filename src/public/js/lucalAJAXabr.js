@@ -1,6 +1,8 @@
 $(document).ready(function () {
 
-
+    /**
+     * Event to login in the app
+     */
     $('#form-login').submit(function (e) {
         e.preventDefault();
         $.ajax({

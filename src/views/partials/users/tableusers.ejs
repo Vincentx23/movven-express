@@ -4,6 +4,10 @@
       <th>Nombre</th>
       <th>Correo Electronico</th>
       <th>Rol</th>
+      <th>Codigo de usuario</th>
+      <th>Acciones</th>
+
+
     </thead>             
     <tbody id="tbody-users">         
         <tr>
@@ -16,3 +20,48 @@
              
     </tbody>
   </table>
+
+
+   <!-- The Modal -->
+   <div class="modal fade" id="modal-detail-users">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">Detalles</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+        
+        <!-- Modal body -->
+        <%- include ('modaldetailuser') %>
+        
+        <!-- Modal footer -->
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+     <!-- The Second Modal -->
+     <div class="modal fade" id="modal-asing-business">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+        
+          <!-- Modal Header -->
+          <div class="modal-header">
+            <h4 class="modal-title">Detalles</h4>
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+          </div>
+          
+          <!-- Modal body -->
+          <%- include ('modalasingBusiness') %>
+          
+     
+          
+        </div>
+      </div>
+    </div>

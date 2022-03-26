@@ -300,7 +300,7 @@ module.exports = {
   
     
     /**
-     * Check if order exists on database and get its data
+     * Check if order exists on database and send the verification
      * @param code
      * @param userId
      * @returns {Promise<any>}
@@ -312,7 +312,7 @@ module.exports = {
                 [code, userId],
                 (err, res) => {
                     if (err) {
-                        return reject(err);
+                        return reject(err)
                     }
                     if (Array.isArray(res) && res.length > 0) {
                         return resolve({
@@ -376,6 +376,26 @@ module.exports = {
                 }
             )
         }
-    )
+    ), 
+
+    getOrderbyCodeDelivery: (code, userId) => new Promise(
+        (resolve, reject) => {
+            db.query(
+                'SELECT createdAt,clientName,phone,city,distric,state,codeDelivery,amountPakages,totalDimensions,directionDetails,orderDescription,limitDate,payment FROM orders WHERE codeDelivery = ? AND userId = ?',
+                [code, userId],
+                (err, rows, fields) =>{
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return  resolve(rows && Array.isArray(rows) ? rows : []);
+                    } else {
+                        return reject({
+                            status: 400, 
+                            message: 'No tiene ordenes registradas con este codigo'
+                        });
+                    }
+                }
+            )
+        }
+    ),
 
 }

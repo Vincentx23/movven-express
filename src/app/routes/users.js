@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {getUsers, getUsersByRole, asingConductorOrder} = require('../controllers/users')
+const {getUsers, getUsersByRole, asingConductorOrder, getUserByIdBusiness} = require('../controllers/users')
 const verifyToken = require ('../middlewares/verifyToken');
 
 router.route('/users/:0')
@@ -11,4 +11,9 @@ router.route('/usersRole/:role')
 
 router.route('/conductor')
     .post(verifyToken,asingConductorOrder )
+
+    
+router.route('/user/:userId')
+.get(verifyToken, getUserByIdBusiness)
+
 module.exports = router

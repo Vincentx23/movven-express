@@ -3,13 +3,13 @@ const db = require("../../database");
 
 module.exports = {
    /**
-     * Get user data by id
+     * Get users data 
      * @return {Promise<any>}
      */
     getUsers: () => new Promise(
         (resolve,reject) =>{
             db.query(
-                'SELECT * FROM users order by userType',
+                'SELECT * FROM users order by userType ',
                 [], 
                 (err, rows, fields) =>{
                     if(err) return reject(err);
@@ -138,8 +138,32 @@ module.exports = {
                 }
             )
         }
-    )
+    ),
 
+    /**
+     * Get user data by id and business data asigned
+     * @param id
+     * @return {Promise<any>}
+     */
+     getUserByIdAndBusiness: id => new Promise(
+        (resolve,reject) =>{
+            db.query(
+                'SELECT us.name as "name", bs.name as "businessName", email, codeUser, userType, description, code as "businessCode"  FROM users us INNER JOIN business bs ON us.businessId = bs.id WHERE us.id = ?',
+                [id], 
+                (err, rows, fields) =>{
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return resolve(rows[0])
+                    } else {
+                        return reject({
+                            status: 404, 
+                            message: 'Usuario no encontrado'
+                        });
+                    }
+                }
+            )
+        }
+    ),
 
 
 

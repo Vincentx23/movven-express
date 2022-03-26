@@ -1,6 +1,9 @@
 const controller = {}
 
-const {getUsers,getConductors,asingConductorOrder, checkCoductorAsignedOrder, upGradeConductorOrder} = require('../services/users')
+const {getUsers,getConductors,asingConductorOrder, checkCoductorAsignedOrder, 
+    upGradeConductorOrder, getUserByIdAndBusiness} = require('../services/users')
+
+const {getUserById} = require('../services/auth');
 
 controller.getUsers = async (req,res,next) => {
         try {
@@ -51,5 +54,27 @@ controller.asingConductorOrder = async (req,res, next) => {
         res.status(200).json({message: 'Conductor registrado'});
     }
 }
+
+controller.getUserByIdBusiness = async (req, res, next) => {
+    var user = '';
+    try {
+        user = await getUserByIdAndBusiness(req.params.userId);
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+        return res.status(200).send({ error: null, user })
+
+    //If the user donst have a business we just search the user whitout business information    
+    } catch (err) {
+
+        user = await getUserById(req.params.userId);
+        //If we donsent found the user 
+        if (!user) {
+            return res.status(404).send('Usuario no encontrado');
+        }
+        return res.status(200).send({ error: null, user })
+    }
+}
+
 
 module.exports = controller

@@ -3,7 +3,7 @@ const controller = {};
 const {newOrder, getUserOrders, checkCodeDeliveryInDatabase, 
     upGradeOrderSate, getOrderById, getOrders, 
     getAdminOrdersById, getOrderStateById, getConductorOrders} = require('../services/orders');
-const dbUtils = require('../utils/db');
+    const dbUtils = require('../utils/db');
 
 
 controller.newOrder = async (req,res,next) => {
@@ -20,8 +20,7 @@ controller.newOrder = async (req,res,next) => {
         if(checkCodeDelivery) {
             return res.status(400).send({error: "Code delivery registrado, ingrese uno nuevo"}) 
         }
-
-     
+        
     }catch(err) {
         //Si capta un error de la peticion del servicio de verificacion de code, significa que el codigo no existe, por tanto dejamos registrar la peticion
         newOrder(clientName, phone, city, distric, 1, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment, createdAt[0].date, req.userId);

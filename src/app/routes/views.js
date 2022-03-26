@@ -42,6 +42,14 @@ router.get('/users', function (req, res) {
 
 });
 
+router.get('/business', function (req, res) {
+	res.render('business',
+		{
+			message: req.flash('Business creator')
+		});
+
+});
+
 router.get('/driversorders', function (req, res) {
 	res.render('driversorders',
 		{

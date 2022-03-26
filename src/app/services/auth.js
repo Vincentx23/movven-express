@@ -3,6 +3,40 @@ const db = require("../../database");
 
 module.exports = {
 
+
+
+    /**
+     * Check if business exists on database and send the verification
+     * @param code
+     * @returns {Promise<any>}
+     */
+     checkUserCodeInDatabase: (code) => new Promise(
+        (resolve, reject) => {
+            db.query(
+                'SELECT id, codeUser FROM users WHERE codeUser = ?',
+                [code],
+                (err, res) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    if (Array.isArray(res) && res.length > 0) {
+                        return resolve({
+                            status: 200,
+                            message: 'Usuario encontrada',
+                            data: res[0]
+
+                        });
+                    } else {
+                        return reject({
+                            status: 400,
+                            message: 'Usuario no encontrada',
+                        });
+                    }
+                }
+            )
+        }
+    ),
+
     /**
      * Check if user exists on database and get his data
      * @param email
@@ -35,12 +69,13 @@ module.exports = {
      * @param name
      * @param email
      * @param password
+     * @param code
      * @returns {Promise<any>}
     */
-    newUser: (name, email, password, rol) => new Promise(
+    newUser: (name, email, password, rol, codeUser) => new Promise(
         (resolve, reject) => {
             db.query('INSERT INTO users SET ?',
-                { name: name, email: email, password: password, userType: rol },
+                { name: name, email: email, password: password, userType: rol, codeUser: codeUser  },
                 (err, res) => {
                     if (err) {
                         console.log(err);
@@ -69,7 +104,7 @@ module.exports = {
      getUserById: id => new Promise(
          (resolve,reject) =>{
              db.query(
-                 'SELECT name, email FROM users WHERE id = ?',
+                 'SELECT * FROM users WHERE id = ?',
                  [id], 
                  (err, rows, fields) =>{
                      if(err) return reject(err);

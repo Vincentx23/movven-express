@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {newOrder, getOrderbyCodeDelivery} = require('../controllers/externalControllers');
+const {newOrder, getOrderbyCodeDelivery, getOrders} = require('../controllers/externalControllers');
 
 
 router.route('/order')
@@ -9,7 +9,8 @@ router.route('/order')
 router.route('/order/:codeUser/:codeBusiness/:deliveryCode')
     .get(getOrderbyCodeDelivery)
 
-
+router.route('/order/:codeUser/:codeBusiness')
+    .get(getOrders)
 
 
 

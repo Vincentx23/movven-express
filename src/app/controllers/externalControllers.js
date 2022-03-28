@@ -2,7 +2,7 @@ const controller = {}
 const { checkBusinessCodeInDatabase, } = require('../services/business')
 const { checkUserCodeInDatabase, getUserById } = require('../services/auth')
 const { getBusinessById } = require('../services/business');
-const { newOrder, checkCodeDeliveryInDatabase, getOrderbyCodeDelivery } = require('../services/orders');
+const { newOrder, checkCodeDeliveryInDatabase, getOrderbyCodeDelivery,getOrdersByBusiness } = require('../services/orders');
 
 
 const { generateRandomString } = require('../utils/randomCode');
@@ -131,7 +131,7 @@ controller.getOrderbyCodeDelivery = async (req, res, next) => {
                     code: '0',
                     data: order,
                 });
-            } else{
+            } else {
                 return res.status(400).json({
                     success: false,
                     code: 'E502',
@@ -149,6 +149,55 @@ controller.getOrderbyCodeDelivery = async (req, res, next) => {
     }
 }
 
+controller.getOrders = async (req, res, next) => {
+    try {
+        const codeUser = req.params.codeUser
+        const codeBusiness = req.params.codeBusiness
+        //We verify the empty fields
+        if (!codeUser || !codeBusiness) {
+            return res.status(400).json({
+                success: false,
+                code: 'E501',
+                error: 'Empty Fields'
+            });
+        }
+        checkUserCode = await checkUserCodeInDatabase(codeUser);
+        if (checkUserCode) {
+            //We get the user id to use later
+            var userId = checkUserCode.data.id;
+            var userInfo = await getUserById(userId)
+            //We verify the business code
+            const checkBusinessCode = await checkBusinessCodeInDatabase(codeBusiness);
 
+            //We get the business id to use later
+            var businessId = checkBusinessCode.data.id;
+            var businessInfo = await getBusinessById(businessId)
+
+            //We verify if the business and user are relacionated
+            if (businessInfo.id === userInfo.businessId) {
+                
+                var orders = await getOrdersByBusiness( userId);
+                return res.status(200).json({
+                    success: true,
+                    code: '0',
+                    data: orders,
+                });
+            } else {
+                return res.status(400).json({
+                    success: false,
+                    code: 'E502',
+                    message: 'User code and business code not match'
+                });
+            }
+        }
+    } catch (err) {
+
+        res.status(500).json({
+            success: false,
+            code: 'E500',
+            error: `Authorization negated`
+        });
+    }
+}
 
 module.exports = controller;

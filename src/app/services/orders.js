@@ -398,4 +398,30 @@ module.exports = {
         }
     ),
 
+
+    /**
+         * Function to get all order, business and user data by userId
+         * @param {*} userId 
+         * @returns {String}
+         */
+    getOrdersByBusiness: (userId) => new Promise(
+        (resolve, reject) => {
+            db.query(
+                'SELECT us.name as "userName", bs.name as "businessName", email, codeUser, userType, description as "descriptionBusiness", code as "businessCode", codeUser, createdAt, clientName, phone, city, distric, state, codeDelivery, amountPakages, totalDimensions, directionDetails, orderDescription, limitDate, payment  FROM users us INNER JOIN business bs ON us.businessId = bs.id INNER JOIN orders  ord ON us.id = ord.userId WHERE us.id = ?',
+                [userId],
+                (err, rows, fields) =>{
+                    if(err) return reject(err);
+                    if(Array.isArray(rows) && rows.length >0) {
+                        return  resolve(rows && Array.isArray(rows) ? rows : []);
+                    } else {
+                        return reject({
+                            status: 400, 
+                            message: 'No tiene ordenes registradas con estos codigos'
+                        });
+                    }
+                }
+            )
+        } 
+    )
+
 }
